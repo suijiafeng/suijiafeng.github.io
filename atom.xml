@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://suijiafeng.com/"/>
   <updated>2018-01-01T12:05:37.951Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://suijiafeng.com/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2018/01/01/hello-world/"/>
-    <id>http://yoursite.com/2018/01/01/hello-world/</id>
+    <link href="http://suijiafeng.com/2018/01/01/hello-world/"/>
+    <id>http://suijiafeng.com/2018/01/01/hello-world/</id>
     <published>2018-01-01T12:05:37.951Z</published>
     <updated>2018-01-01T12:05:37.951Z</updated>
     
