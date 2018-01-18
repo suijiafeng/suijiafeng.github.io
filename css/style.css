@@ -894,6 +894,7 @@ header nav ul li a:hover {
   }
 }
 article header.article-info >h1 {
+  text-align: center;
   padding: 0.2em 3%;
   font-size: 170%;
   line-height: 1.5;
@@ -2073,10 +2074,10 @@ footer {
   }
 }
 .copyright a {
-  color: #2c5ecb;
+  color: #19a43d;
 }
 .copyright a:hover {
-  color: #2c5ecb;
+  color: #62a419;
   text-decoration: underline;
 }
 .cc-license {
