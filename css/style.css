@@ -895,7 +895,7 @@ header nav ul li a:hover {
 }
 article header.article-info >h1 {
   text-align: center;
-  padding: 0.2em 3%;
+  padding-top: 1.2em;
   font-size: 170%;
   line-height: 1.5;
   word-wrap: break-word;
@@ -907,7 +907,7 @@ article header.article-info >h1 {
 @media only screen and (min-width: 1024px) {
   article header.article-info >h1 {
     font-size: 200%;
-    padding-top: 0.3em;
+    padding-top: 1.3em;
   }
 }
 article header.article-info >p.article-author {
@@ -1398,11 +1398,11 @@ footer.article-footer {
   background: #2c5ecb;
 }
 .article-nav {
-  padding: 0 10%;
+  padding: 4% 10%;
 }
 @media only screen and (min-width: 768px) {
   .article-nav {
-    padding: 0 4%;
+    padding: 2% 4%;
   }
 }
 .article-nav strong {
