@@ -1414,7 +1414,6 @@ footer.article-footer {
 }
 .article-nav .prev a:hover,
 .article-nav .next a:hover {
-  /* background: #2c5ecb; */
   color: #2c5ecb;
 }
 .article-nav .prev {
@@ -2074,10 +2073,10 @@ footer {
   }
 }
 .copyright a {
-  color: #0078b6;
+  color: #2c5ecb;
 }
 .copyright a:hover {
-  color: #4e1616;
+  color: #2c5ecb;
   text-decoration: underline;
 }
 .cc-license {
