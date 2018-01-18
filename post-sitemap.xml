@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://suijiafeng.com/2018/01/18/hello-world/</loc>
+        <lastmod>2018-01-18T14:31:20.064Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://suijiafeng.com/2018/01/01/%E4%B8%AD%E5%9B%BD%E7%AC%AC%E4%B8%80/</loc>
         <lastmod>2018-01-02T14:15:38.143Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,14 +25,6 @@
     <url>
         <loc>http://suijiafeng.com/2018/01/01/My-New-Post/</loc>
         <lastmod>2018-01-01T13:44:13.342Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://suijiafeng.com/2018/01/01/hello-world/</loc>
-        <lastmod>2018-01-01T12:05:37.951Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
