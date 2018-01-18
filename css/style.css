@@ -886,7 +886,7 @@ header nav ul li a:hover {
 .page a:hover,
 .link a:hover,
 .photo a:hover {
-  color: #ea6753;
+  color: #2c5ecb;
 }
 @media only screen and (min-width: 768px) {
   article header.article-info {
@@ -1412,8 +1412,8 @@ footer.article-footer {
   display: block;
   overflow: hidden;
 }
-.article-nav .prev a:hover,
-.article-nav .next a:hover {
+.article-nav .prev a:hover span,
+.article-nav .next a:hover span {
   color: #2c5ecb;
 }
 .article-nav .prev {
