@@ -638,6 +638,14 @@ header nav ul li a:hover {
     padding: 1em;
   }
 }
+@media only screen and (max-width: 568px) {
+  #main section.post a {
+    border-left: 0em solid #ccc;
+  }
+  #main section.post a:hover {
+    border-left: 0em solid #2c5ecb;
+  }
+}
 #main section.post a:hover {
   border-left: 0.5em solid #2c5ecb;
 }
@@ -696,6 +704,9 @@ header nav ul li a:hover {
 #archive-page section.post a {
   font-size: 0.9em;
   padding: 0.5em !important;
+}
+#archive-page section.post a time {
+  text-align: left;
 }
 @media only screen and (min-width: 768px) {
   #archive-page section.post a time {
