@@ -106,12 +106,12 @@ function textFill(input){ //input focus text function
 <li>预加载图片</li>
 </ol>
 <p>This piece of code will prevent the loading of all images, which can be useful if you have a site with lots of images.</p>
-<p>$(document).ready(function() {<br>jQuery.preloadImages = function()<br>{<br>  for(var i = 0; i&lt;ARGUMENTS.LENGTH; jQuery(?<img {="" i++)="">“).attr(“src”, arguments[i]);<br>  }<br>}<br>// how to use<br>$.preloadImages(“image1.jpg”);<br>});</p>
+<p>$(document).ready(function() {<br>jQuery.preloadImages = function()<br>{<br>  for(var i = 0; i<arguments.length; jquery(?<img="" {="" i++)="">“).attr(“src”, arguments[i]);<br>  }<br>}<br>// how to use<br>$.preloadImages(“image1.jpg”);<br>});</arguments.length;></p>
 <ol>
 <li>页面样式切换</li>
 </ol>
 <p>$(document).ready(function() {<br>    $(“a.Styleswitcher”).click(function() {<br>        //swicth the LINK REL attribute with the value in A REL attribute<br>        $(‘link[rel=stylesheet]’).attr(‘href’ , $(this).attr(‘rel’));<br>    });<br>// how to use<br>// place this in your header</p>
-<p>&lt;LINK rel=stylesheet type=text/css href=”default.css”&gt;<br>// the links</p>
+<p><link rel="stylesheet" type="text/css" href="default.css"><br>// the links</p>
 <p><a class="Styleswitcher" href="#" rel="default.css">Default Theme</a></p>
 <p><a class="Styleswitcher" href="#" rel="red.css">Red Theme</a></p>
 <p><a class="Styleswitcher" href="#" rel="blue.css">Blue Theme</a><br>});</p>
@@ -132,7 +132,7 @@ function textFill(input){ //input focus text function
 <p>$(document).ready(function() {<br>$(‘a[href*=#]’).click(function() {<br> if (location.pathname.replace(/^\//,’’) == this.pathname.replace(/^\//,’’)<br> &amp;&amp; location.hostname == this.hostname) {<br>   var $target = $(this.hash);<br>   $target = $target.length &amp;&amp; $target<br>   || $(‘[name=’ + this.hash.slice(1) +’]’);<br>   if ($target.length) {<br>  var targetOffset = $target.offset().top;<br>  $(‘html,body’)<br>  .animate({scrollTop: targetOffset}, 900);<br>    return false;<br>   }<br>  }<br>  });<br>// how to use<br>// place this where you want to scroll to</p>
 <p><a name="top"></a><br>// the link</p>
 <p><a href="#top">go to top</a><br>});</p>
-<ol start="10">
+<ol>
 <li>获得鼠标指针ＸＹ值</li>
 </ol>
 <p>Want to know where your mouse cursor is?</p>
@@ -168,12 +168,12 @@ function textFill(input){ //input focus text function
 <p>20.让两个 DIV 高度相同</p>
 <p>有时你需要让两个 div 高度相同，而不管它们里面的内容多少。可以使用下面的代码片段：</p>
 <p>var $columns = $(‘.column’);<br>var height = 0;<br>$columns.each(function () {<br>  if ($(this).height() &gt; height) {<br>    height = $(this).height();<br>  }<br>});<br>$columns.height(height);<br>这段代码会循环一组元素，并设置它们的高度为元素中的最大高。</p>
-<ol start="11">
+<ol>
 <li>验证元素是否为空</li>
 </ol>
 <p>This will allow you to check if an element is empty.</p>
 <p>$(document).ready(function() {<br>  if ($(‘#id’).html()) {<br>   // do something<br>   }<br>});</p>
-<ol start="12">
+<ol>
 <li>替换元素</li>
 </ol>
 <p>Want to replace a div, or something else?</p>
@@ -181,22 +181,22 @@ function textFill(input){ //input focus text function
 <div>I have been replaced</div>
 
 <p>‘);<br>});</p>
-<ol start="13">
+<ol>
 <li>jQuery延时加载功能</li>
 </ol>
 <p>Want to delay something?</p>
 <p>$(document).ready(function() {<br>   window.setTimeout(function() {<br>     // do something<br>   }, 1000);<br>});</p>
-<ol start="14">
+<ol>
 <li>移除单词功能</li>
 </ol>
 <p>Want to remove a certain word(s)?</p>
 <p>$(document).ready(function() {<br>   var el = $(‘#id’);<br>   el.html(el.html().replace(/word/ig, “”));<br>});</p>
-<ol start="15">
+<ol>
 <li>验证元素是否存在于jquery对象集合中</li>
 </ol>
 <p>Simply test with the .length property if the element exists.</p>
 <p>$(document).ready(function() {<br>   if ($(‘#id’).length) {<br>  // do something<br>  }<br>});</p>
-<ol start="16">
+<ol>
 <li>使整个DIV可点击</li>
 </ol>
 <p>Want to make the complete div clickable?</p>
@@ -204,12 +204,12 @@ function textFill(input){ //input focus text function
 <div><a href="index.html">home</a></div>
 
 <p>});</p>
-<ol start="17">
+<ol>
 <li>ID与Class之间转换</li>
 </ol>
 <p>当改变Window大小时，在ID与Class之间切换</p>
 <p>$(document).ready(function() {<br>   function checkWindowSize() {<br>    if ( $(window).width() &gt; 1200 ) {<br>        $(‘body’).addClass(‘large’);<br>    }<br>    else {<br>        $(‘body’).removeClass(‘large’);<br>    }<br>   }<br>$(window).resize(checkWindowSize);<br>});</p>
-<ol start="18">
+<ol>
 <li>克隆对象</li>
 </ol>
 <p>Clone a div or an other element.</p>
@@ -217,42 +217,42 @@ function textFill(input){ //input focus text function
 <div id="id"></div>
 
 <p>});</p>
-<ol start="19">
+<ol>
 <li>使元素居屏幕中间位置</li>
 </ol>
 <p>Center an element in the center of your screen.</p>
 <p>$(document).ready(function() {<br>  jQuery.fn.center = function () {<br>      this.css(“position”,”absolute”);<br>      this.css(“top”, ( $(window).height() - this.height() ) / 2+$(window).scrollTop() + “px”);<br>      this.css(“left”, ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + “px”);<br>      return this;<br>  }<br>  $(“#id”).center();<br>});</p>
-<ol start="10">
+<ol>
 <li>写自己的选择器</li>
 </ol>
 <p>Write your own selectors.</p>
 <p>$(document).ready(function() {<br>   $.extend($.expr[‘:’], {<br>       moreThen1000px: function(a) {<br>           return $(a).width() &gt; 1000;<br>      }<br>   });<br>  $(‘.box:moreThen1000px’).click(function() {<br>      // creating a simple js alert box<br>      alert(‘The element that you have clicked is over 1000 pixels wide’);<br>  });<br>});</p>
-<ol start="11">
+<ol>
 <li>统计元素个数</li>
 </ol>
 <p>Count an element.</p>
 <p>$(document).ready(function() {<br>   $(“p”).size();<br>});</p>
-<ol start="12">
+<ol>
 <li>使用自己的 Bullets</li>
 </ol>
 <p>Want to use your own bullets instead of using the standard or images bullets?</p>
 <p>$(document).ready(function() {<br>   $(“ul”).addClass(“Replaced”);<br>   $(“ul &gt; li”).prepend(“? “);<br> // how to use<br> ul.Replaced { list-style : none; }<br>});</p>
-<ol start="13">
+<ol>
 <li>引用Google主机上的Jquery类库</li>
 </ol>
 <p>Let Google host the jQuery script for you. This can be done in 2 ways.</p>
 <p>//Example 1</p>
-<script src="http://www.google.com/jsapi"></script><br>&lt;SCRIPT type=text/javascript&gt;<br>google.load(“jquery”, “1.2.6”);<br>google.setOnLoadCallback(function() {<br>    // do something<br>});<br>&lt;SCRIPT type=text/javascript src=”<a href="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js&quot;&gt;" target="_blank" rel="noopener">http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js&quot;&gt;</a>
+<script src="http://www.google.com/jsapi"></script><br><script type="text/javascript"><br>google.load(“jquery”, “1.2.6”);<br>google.setOnLoadCallback(function() {<br>    // do something<br>});<br></script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
 <p> // Example 2:(the best and fastest way)</p>
-&lt;SCRIPT type=text/javascript src=”<a href="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js&quot;&gt;" target="_blank" rel="noopener">http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js&quot;&gt;</a>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
-<ol start="14">
+<ol>
 <li>禁用Jquery（动画）效果</li>
 </ol>
 <p>Disable all jQuery effects</p>
 <p>$(document).ready(function() {<br>    jQuery.fx.off = true;<br>});</p>
-<ol start="15">
+<ol>
 <li>与其他Javascript类库冲突解决方案</li>
 </ol>
 <p>To avoid conflict other libraries on your website, you can use this jQuery Method, and assign a different variable name instead of the dollar sign.</p>

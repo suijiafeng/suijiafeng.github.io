@@ -120,7 +120,7 @@
 <ul>
 <li>优点：最稳定，但是可维护性差。</li>
 </ul>
-<ol start="2">
+<ol>
 <li>给父元素加：over:hidden;</li>
 <li>解决“塌陷”的办法<br>1、创建一个用来清除浮动的CSS样式类 （.clearfix）<br>2、针对包裹的全是浮动元素的父级容器使用（.clearfix）.<br>clearfix { zoom:1;}<br>.clearfix:after { content:”.”; display:block; visibility:hidden; height:0; clear:both;}</li>
 </ol>

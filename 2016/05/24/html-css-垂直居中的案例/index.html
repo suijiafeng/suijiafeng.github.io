@@ -104,7 +104,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#box &#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    background: #ddd;</span><br><span class="line">&#125;</span><br><span class="line">#base &#123;</span><br><span class="line">    height: 50%;</span><br><span class="line">    background: #AF9BD3;</span><br><span class="line">&#125;</span><br><span class="line">#child &#123;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: rgba(131, 224, 245, 0.6);</span><br><span class="line">    line-height: 50px;</span><br><span class="line">    margin-top: -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>复制代码<br>运行结果如下：</p>
 <p>　　这种方式也非常简单，首先设置一个高度等于父元素高度一半的第三方基准元素，那么此时该基准元素的底边线自然就是父元素纵向上的中分线，做完这些之后再给要垂直居中的元素设置一个margin-top，值的大小是它自身高度的一半取负，则实现垂直居中。</p>
-<ol start="7">
+<ol>
 <li>使用flex布局<br>html代码：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;box&quot;&gt;雾霾天气，太久没有打球了&lt;/div&gt;</span><br></pre></td></tr></table></figure>

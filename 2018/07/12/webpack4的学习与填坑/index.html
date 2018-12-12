@@ -96,30 +96,16 @@
 <p>webpack-dev-server是一个轻量级的服务器，修改文件源码后，自动刷新页面将修改同步到页面上安装webpack-dev-server：</p>
 <blockquote>
 <p>①全局安装：npm install webpack-dev-server -g </p>
-</blockquote>
-<blockquote>
 <p>②在项目中安装并将依赖写在package.json文件中:npm install webpack-dev-server –save-dev</p>
-</blockquote>
-<blockquote>
 <p>③使用命令webpack-dev-server –mode development –output-public-path src完成自动刷新，指定publicPath，这部分很容易没有实时刷新。</p>
-</blockquote>
-<blockquote>
 <p>④默认的端口号是8080，如果需要8080端口被占用，就需要改端口，webpack-dev-server –port 3000(将端口号改为3000)，可以直接在webpack.config.js配置文件中配置devServer属性，开启热更新和port。</p>
-</blockquote>
-<blockquote>
 <p>⑤启动服务，输入localhost:端口号，就显示发布的所有根目录，如果项目根目录中没有index.html文件，就会在浏览器中列出项目根目录中的所有的文件夹。</p>
-</blockquote>
-<blockquote>
 <p>⑥当使用webpack-dev-server –mode development –output-public-path src命令时，在每次修改文件，是将文件打包保存在内存中并没有写在磁盘里，这种打包得到的文件和项目根目录中的index.html位于同一级。使用webpack命令将打包后的文件保存在磁盘中例如在index.html文件中引入通过webpack-dev-server –mode development  –output-public-path src打包的build.js<br><code>&lt;script src=&quot;build.js&quot;&gt;&lt;/script&gt;</code>　在index.html文件中引入通过webpack命令打包的build.js　</p>
-</blockquote>
-<blockquote>
 <p><code>&lt;script src=&quot;./build/build.js&quot;&gt;&lt;/script&gt;</code><br>–inline 内联模式，在开发服务器的两种不同模式之间切换。默认情况下, 应用程序将被启用内嵌模式。这意味着将在包中插入一个脚本来处理实时重装, 并且生成消息将出现在浏览器控制台中。<br>–hot 启用热模块更换功能</p>
 </blockquote>
 <p>//////以上是搜索了各个教程里面说的，但是实际操作还是有问题，<br>index.html入口文件是在根目录下，没有进行配置content-base，因为配置了之后会只打包配置的目录文件，默认是根文件。配置了output的publicPath（很重要，删掉之后就不能自动刷新了，应该是webpack-dev-server将每次打包的文件根据output设置生成在publicPath目录下，而文件本身依旧是手动打包的，无法查看到自动刷新打包的文件），只配置了端口，没有配置hot:true和inline:true(最开始配置了，但是有报错，所以删掉莫名OK了）</p>
 <blockquote>
 <p>⑦webpack自带的watch命令与webpack-dev-server的区别<br>–watch是文件修改后自动打包，webpack-dev-server是修改后发布到服务器上</p>
-</blockquote>
-<blockquote>
 <p>⑧webpack-dev-server –mode development –content-base src –inline –hot//显示只针对src路径下的文件刷新,文件修改之后浏览器自动刷新，如果要打开的文件和打包的文件不在一个文件夹内，最好不要设定文件夹</p>
 </blockquote>
 <p>11.打包css文件</p>
@@ -154,7 +140,7 @@ css-loader //处理css文件
 <p>hash值可以认为是版本号或者MD5值保证每个文件的唯一性，每一次修改之后生成文件的hash值不一样，文件名不一样<br>。<br>③publicPath可以理解为占位符。当需要上线的时候可以将服务器地址设置到这个参数中，output:</p>
 <pre><code>{path:&apos;xxx&apos;,filename:&apos;xxx&apos;,publicPath:&apos;http://cdn.com/&apos;}
 </code></pre><p>插件（plugin）<br>插件是 webpack 的支柱功能。webpack 自身也是构建在 webpack 配置中用到的相同的插件系统之上。插件目的在于解决 loader 无法实现的其他事。</p>
-<p>19.插件html-webpack-plugin<br>要引用之前先安装,在项目文件目录下安装 npm install html-webpack-plugin –save-dev<br>安装好之后，在webpack.config.js配置文件中对插件的引用<br>var htmlWebpackPlugin = require(‘html-webpack-plugin’);//commonJS写法<br>在module.exports中添加plugin部分进行插件初始化，<br>插件列表，当多个bundle需要共享一些相同的插件时，CommonChunkPlugin可以将这些依赖项提取到一个共享包中，以免重复。<br>plugins:[<br>    new webpack.optimize.CommonsChunkPlugin({<br>        …..<br>    }),<br>    new htmlChunkPlugin({<br>        template:’index.html’,//自定义模板<br>        filename:’index-[hash].html’,//生成文件名<br>        inject:’head’,//指定链接注入在<head><meta name="generator" content="Hexo 3.8.0">标签中还是</head><body>标签中，为false值时表示不自动注入文件中，需要手动设置<br>        title:’webpack demo’,//传递参数，可以在index.html模板中引用<br>        minify:{//压缩html文件，具体参数设置可以查看官方文档</body></p>
+<p>19.插件html-webpack-plugin<br>要引用之前先安装,在项目文件目录下安装 npm install html-webpack-plugin –save-dev<br>安装好之后，在webpack.config.js配置文件中对插件的引用<br>var htmlWebpackPlugin = require(‘html-webpack-plugin’);//commonJS写法<br>在module.exports中添加plugin部分进行插件初始化，<br>插件列表，当多个bundle需要共享一些相同的插件时，CommonChunkPlugin可以将这些依赖项提取到一个共享包中，以免重复。<br>plugins:[<br>    new webpack.optimize.CommonsChunkPlugin({<br>        …..<br>    }),<br>    new htmlChunkPlugin({<br>        template:’index.html’,//自定义模板<br>        filename:’index-[hash].html’,//生成文件名<br>        inject:’head’,//指定链接注入在<head>标签中还是</head><body>标签中，为false值时表示不自动注入文件中，需要手动设置<br>        title:’webpack demo’,//传递参数，可以在index.html模板中引用<br>        minify:{//压缩html文件，具体参数设置可以查看官方文档</body></p>
 <pre><code>    }
 })
 </code></pre><p>]<br>index.html引用配置文件中的参数，JS语法模式，要使用JS语句可以使用&lt;%%&gt;将每行代码包裹起来。赋值可以使用&lt;%=xxx %&gt;，如&lt;%=htmlWebpackPlugin.options.title%&gt;就可以取到配置文件中定义的title的值。<br>在配置文件中可以任意的配置参数向html文件进行传参。<br>自定义引用的js文件可以直接写到html文件中<br>如在html文件中相对应的位置写，</p>
