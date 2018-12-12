@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>js的数据类型 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>js的数据类型</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2017年05月10日</time>
+            
+            
+          </div>
+          <h3 id="特点：弱类型特性。"><a href="#特点：弱类型特性。" class="headerlink" title="特点：弱类型特性。"></a>特点：弱类型特性。</h3><p>共有5种原始类型：number String  boolean null undefined  </p>
+<p>1中Object 类型</p>
+<h3 id="隐士转换："><a href="#隐士转换：" class="headerlink" title="隐士转换："></a>隐士转换：</h3><h4 id="巧用-的转换逻辑"><a href="#巧用-的转换逻辑" class="headerlink" title="+ - 巧用 + - 的转换逻辑"></a>+ - 巧用 + - 的转换逻辑</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;123&quot;==123</span><br><span class="line"></span><br><span class="line">0 ==false</span><br><span class="line"></span><br><span class="line">null ==undefined</span><br><span class="line"></span><br><span class="line">[1,2]==[1,2]  因为他们两个是不同的对象</span><br><span class="line"></span><br><span class="line">NaN 不等于NaN</span><br></pre></td></tr></table></figure>
+<p>​    类型相同，同 ===</p>
+<p>​    类型不同，尝试类型转换</p>
+<h3 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h3><p>object 对象 ：Function   Data  Array</p>
+<p>当我们尝试把基本类型当成是对象来使用的时候 </p>
+<p>​    js内部会帮我们包装成对象，当这个动作完成后，这个对象也就被销毁了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = &quot;string&quot;;</span><br><span class="line">undefined</span><br><span class="line">a.length</span><br><span class="line">6</span><br><span class="line">a.t=3;</span><br><span class="line">3</span><br><span class="line">a.t;//设置完 a.t 属性之后，临时被包装的对象也就被销毁了。</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+<h3 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h3><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/FB4BBE59F1EA4502A382B894597A67E7/3984" alt="image"></p>
+<h3 id="obj-instanceof-Object"><a href="#obj-instanceof-Object" class="headerlink" title="obj instanceof Object"></a>obj instanceof Object</h3><p>运行原理：判断左边obj 对象的原型链上是否有右边这个对象 Object 的protype 属性</p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/41AC3A6387BF4C58B4C0A66425E10FA7/4009" alt="image"></p>
+<p>类型检测：</p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/C752C7F7F0CF4193A0F573FBB45C118C/3983" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/436627D93CD84BA5B105A95C5EC464D4/3976" alt="image"></p>
+<h2 id="表达式："><a href="#表达式：" class="headerlink" title="表达式："></a>表达式：</h2><p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/6E53834BD4B3462CA38EBF41176871A2/4001" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/31D3784199B141E0926812709C719CB7/4008" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/76EB0C738F2244E297CB8BFE9EC7DD41/4007" alt="image"></p>
+<h2 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/7D18A95A288643A99D24A92679056300/4004" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/54A02DEA8BBD4D9C96E7BE5CDB23B1FF/4000" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/F9D6DD9AC2BE4761A65788A1058402B8/4011" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/4818F9BEA00D434C95AD9135464A021C/4012" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/31D3784199B141E0926812709C719CB7/4008" alt="image"></p>
+<h2 id="运算符："><a href="#运算符：" class="headerlink" title="运算符："></a>运算符：</h2><p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/321866938F70466E8D2F8E7D63DBA93E/3991" alt="image"></p>
+<p>1.三元运算符</p>
+<p>2.逗号运算符   var val=(1,2,3);//3</p>
+<p>3.delete<br><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/333B88DF0E8748AFB86585161D36C27C/4005" alt="image"></p>
+<p>4 in </p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/7B8CC053B0C74C219262FC4561286350/4014" alt="image"></p>
+<p>5 new </p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/079255AA1ABE43ED9C6D54664CE2ECB7/3989" alt="image"></p>
+<p>6 this </p>
+<p>7 void</p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/305B1F06510E417D97C139005F603CBE/4006" alt="image"></p>
+<h3 id="运算优先级"><a href="#运算优先级" class="headerlink" title="运算优先级"></a>运算优先级</h3><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/68CCC9C97DC147B7AFF8B1301755A057/3985" alt="image"></p>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/CC3CE85350AC49BAA884FC513E06C8BD/4010" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/D130CDE1FBA04263BC98D543EA9474E2/3999" alt="image"></p>
+<h3 id="语句种类"><a href="#语句种类" class="headerlink" title="语句种类"></a>语句种类<img src="img\语句种类.png" alt="语句种类"></h3><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/594D6B06E1ED499B8A8B35E2E2E59B3E/3978" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">浏览器把 &#123;a:1,b:2&#125;//当成了块，而不是对象字面量。</span><br></pre></td></tr></table></figure>
+<pre><code>## var 声明语句
+</code></pre><p>var a;</p>
+<p>var a,b,c;</p>
+<h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try catch"></a>try catch</h2><p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/9A2D2E9131384D599C8D0A77E4575B77/3997" alt="image"></p>
+<p>1 首先执行try 中的代码，如果出现异常就由catch 捕获，但是不过有没有异常，最后都会执行finally 中的代码</p>
+<p>2 注意点：try  后面一定要带一个catch 或finally ,或者两者皆带。</p>
+<h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/CA85762E97AD42F1944B8440E8B6708A/3998" alt="image"></p>
+<h2 id="for-in"><a href="#for-in" class="headerlink" title="for in"></a>for in</h2><p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/7F60F0525096436FA4C14C6A97F7BEF6/3992" alt="image"></p>
+<h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/93DEF6B7D89947AD84EBD1FB4EBD497C/3977" alt="image"></p>
+<p> ##循环</p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/0A771B6BB11B4433B978B6EFB1CB2F39/3996" alt="image"></p>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><p>可以修改当前的作用域</p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/DE66C7F7A6F84651AA1FE316AFBB8B3A/3986" alt="image"></p>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/402FB559EF664368B75A203250D89EC0/3980" alt="image"></p>
+<h3 id="严格模式下的特点："><a href="#严格模式下的特点：" class="headerlink" title="严格模式下的特点："></a>严格模式下的特点：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SyntaxError :语法错误</span><br><span class="line">ReferenceError:引用错误</span><br></pre></td></tr></table></figure>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/2C7DAA3A206D45CC8CA318D94A9F8D6F/3981" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/9DAE9D1097764EA59F637296832083E5/3982" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/91F5F9BC36444D37BC30F3FDA1EF7C0D/3993" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/4DAAF4083AE548599AEED43A75996AB8/3987" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/43A17FEC60E94241B5B04230098936F3/3972" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/01EB9BB7B8604F00B12263C7092252C1/3990" alt="image"></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/CD2D2F645F444DA98F9B8DDF35629B79/3979" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/ADA09EEEDC534D8BBD15294F47CC2451/3994" alt="image"><br> <img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/F16D3979C84F486898129F1F1C732215/3988" alt="image"></p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/1EDEBD03D3444A939F562266508E921F/3995" alt="image"></p>
+<h2 id="对象结构"><a href="#对象结构" class="headerlink" title="对象结构"></a>对象结构</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/45D357D6CE7B42F9A03147E9F6490BFB/3973" alt="image"></p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/12011010BC4D48A5B5E79B0FFB5C3D12/4003" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/5B2424434354487EA567EE30A6755468/3974" alt="image"></p>
+<p>创建对象的方式2-new 原型链–深入理解</p>
+<p><img src="https://note.youdao.com/yws/public/resource/6032a8a4d7150d5aafd6a0153265cf44/xmlnote/5B2424434354487EA567EE30A6755468/3974" alt="image"></p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2017/05/22/JS的代码的引用规范/" class="fl pre-post btn btn-default" title='正则表达式的类'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">正则表达式的类</span>
+            </a>
+        
+        
+            <a href="/2017/03/17/函数/" class="fr next-post btn btn-default" title='函数'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">函数</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+<div class="toc-container">
+  <h1>目录</h1>
+  <div class="content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#特点：弱类型特性。"><span class="toc-number">1.</span> <span class="toc-text">特点：弱类型特性。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐士转换："><span class="toc-number">2.</span> <span class="toc-text">隐士转换：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#巧用-的转换逻辑"><span class="toc-number">2.1.</span> <span class="toc-text">+ - 巧用 + - 的转换逻辑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#包装对象"><span class="toc-number">3.</span> <span class="toc-text">包装对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型检测"><span class="toc-number">4.</span> <span class="toc-text">类型检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#obj-instanceof-Object"><span class="toc-number">5.</span> <span class="toc-text">obj instanceof Object</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表达式："><span class="toc-number"></span> <span class="toc-text">表达式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数表达式"><span class="toc-number"></span> <span class="toc-text">函数表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运算符："><span class="toc-number"></span> <span class="toc-text">运算符：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运算优先级"><span class="toc-number">1.</span> <span class="toc-text">运算优先级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语句"><span class="toc-number"></span> <span class="toc-text">语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语句种类"><span class="toc-number">1.</span> <span class="toc-text">语句种类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#try-catch"><span class="toc-number"></span> <span class="toc-text">try catch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#function"><span class="toc-number"></span> <span class="toc-text">function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-in"><span class="toc-number"></span> <span class="toc-text">for in</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#switch"><span class="toc-number"></span> <span class="toc-text">switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#with"><span class="toc-number"></span> <span class="toc-text">with</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#严格模式"><span class="toc-number"></span> <span class="toc-text">严格模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#严格模式下的特点："><span class="toc-number">1.</span> <span class="toc-text">严格模式下的特点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象"><span class="toc-number"></span> <span class="toc-text">对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象结构"><span class="toc-number"></span> <span class="toc-text">对象结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建对象"><span class="toc-number"></span> <span class="toc-text">创建对象</span></a>
+  </div>
+</div>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2017/05/10/js的数据类型/";
+var disqus_url = "http://suijiafeng.com/2017/05/10/js的数据类型/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

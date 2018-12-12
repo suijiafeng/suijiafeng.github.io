@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>ES6语法常用特性总结 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>ES6语法常用特性总结</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年08月20日</time>
+            
+            
+          </div>
+          <p>ECMAScript6在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：</p>
+<p>ES6特性如下：</p>
+<h3 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h3><p>关键字let,<br>常量const</p>
+<p>blogexcerpt:123456789</p>
+<h3 id="对象字面量的属性赋值简写"><a href="#对象字面量的属性赋值简写" class="headerlink" title="对象字面量的属性赋值简写"></a>对象字面量的属性赋值简写</h3><pre><code>var obj = {
+    // __proto__
+    __proto__: theProtoObj,
+    // Shorthand for ‘handler: handler’
+    handler,
+    // Method definitions
+    toString() {
+    // Super calls
+    return &quot;d &quot; + super.toString();
+    },
+    // Computed (dynamic) property names
+    [ &apos;prop_&apos; + (() =&gt; 42)() ]: 42
+};
+</code></pre><h3 id="赋值解构"><a href="#赋值解构" class="headerlink" title="赋值解构"></a>赋值解构</h3><pre><code>let singer = { first: &quot;Bob&quot;, last: &quot;Dylan&quot; };
+let { first: f, last: l } = singer; // 相当于 f = &quot;Bob&quot;, l = &quot;Dylan&quot;
+let [all, year, month, day] =  /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&quot;2015-10-25&quot;);
+let [x, y] = [1, 2, 3]; // x = 1, y = 2
+</code></pre><p>4.函数参数（Default 、Rest 、Spread）</p>
+<pre><code>//Default
+function findArtist(name=&apos;lu&apos;, age=&apos;26&apos;) {
+    ...
+}
+
+//Rest
+function f(x, ...y) {
+  // y is an Array
+  return x * y.length;
+}
+
+f(3, &quot;hello&quot;, true) == 6
+
+//Spread
+function f(x, y, z) {
+  return x + y + z;
+}
+// Pass each elem of array as argument
+f(...[1,2,3]) == 6
+</code></pre><h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><ol>
+<li>简化了代码形式，默认return表达式结果。</li>
+</ol>
+<ol>
+<li>自动绑定语义this，即定义函数时的this。如上面例子中，forEach的匿名函数参数中用到的this。</li>
+</ol>
+<h4 id="字符串模板"><a href="#字符串模板" class="headerlink" title="字符串模板"></a>字符串模板</h4><pre><code>var name = &quot;Bob&quot;, time = &quot;today&quot;;
+`Hello ${name}, how are you ${time}?`
+// return &quot;Hello Bob, how are you today?&quot;
+</code></pre><h4 id="Iterators（迭代器）-for-of"><a href="#Iterators（迭代器）-for-of" class="headerlink" title="Iterators（迭代器）+ for..of"></a>Iterators（迭代器）+ for..of</h4><p>迭代器有个next方法，调用会返回：</p>
+<ol>
+<li><p>返回迭代对象的一个元素：{ done: false, value: elem }</p>
+</li>
+<li><p>如果已到迭代对象的末端：{ done: true, value: retVal }</p>
+</li>
+</ol>
+<p><code>for (var n of [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]) {
+      console.log(n);
+    }
+    // 打印a、b、c</code></p>
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><p>Class，有constructor、extends、super，但本质上是语法糖（对语言的功能并没有影响，但是更方便程序员使用）。</p>
+<pre><code>class Artist {
+    constructor(name) {
+        this.name = name;
+    }
+
+    perform() {
+        return this.name + &quot; performs &quot;;
+    }
+}
+
+
+class Singer extends Artist {
+
+    constructor(name, song) {
+        super.constructor(name);
+        this.song = song;
+    }
+
+    perform() {
+        return super.perform() + &quot;[&quot; + this.song + &quot;]&quot;;
+    }
+}
+
+let james = new Singer(&quot;Etta James&quot;, &quot;At last&quot;);
+james instanceof Artist; // true
+james instanceof Singer; // true
+
+james.perform(); // &quot;Etta James performs [At last]&quot;
+</code></pre><h4 id="Map-Set-WeakMap-WeakSet"><a href="#Map-Set-WeakMap-WeakSet" class="headerlink" title="Map + Set + WeakMap + WeakSet"></a>Map + Set + WeakMap + WeakSet</h4><p>四种集合类型，WeakMap、WeakSet作为属性键的对象如果没有别的变量在引用它们，则会被回收释放掉。</p>
+<pre><code>// Sets
+var s = new Set();
+s.add(&quot;hello&quot;).add(&quot;goodbye&quot;).add(&quot;hello&quot;);
+s.size === 2;
+s.has(&quot;hello&quot;) === true;
+
+// Maps
+var m = new Map();
+m.set(&quot;hello&quot;, 42);
+m.set(s, 34);
+m.get(s) == 34;
+
+//WeakMap
+var wm = new WeakMap();
+wm.set(s, { extra: 42 });
+wm.size === undefined
+
+// Weak Sets
+var ws = new WeakSet();
+ws.add({ data: 42 });//Because the added object has no other references, it will not be held in the set
+12.Math + Number + String + Array + Object APIs
+</code></pre><p>一些新的API</p>
+<pre><code>Number.EPSILON
+Number.isInteger(Infinity) // false
+Number.isNaN(&quot;NaN&quot;) // false
+
+Math.acosh(3) // 1.762747174039086
+Math.hypot(3, 4) // 5
+Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2) // 2
+
+&quot;abcde&quot;.includes(&quot;cd&quot;) // true
+&quot;abc&quot;.repeat(3) // &quot;abcabcabc&quot;
+
+Array.from(document.querySelectorAll(&apos;*&apos;)) // Returns a real Array
+Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg behavior
+
+[0, 0, 0].fill(7, 1) // [0,7,7]
+[1, 2, 3].find(x =&gt; x == 3) // 3
+[1, 2, 3].findIndex(x =&gt; x == 2) // 1
+[1, 2, 3, 4, 5].copyWithin(3, 0) // [1, 2, 3, 1, 2]
+[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].entries() // iterator [0, &quot;a&quot;], [1,&quot;b&quot;], [2,&quot;c&quot;]
+[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].keys() // iterator 0, 1, 2
+[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].values() // iterator &quot;a&quot;, &quot;b&quot;, &quot;c&quot;
+
+Object.assign(Point, { origin: new Point(0,0) })
+</code></pre><h4 id="Proxies"><a href="#Proxies" class="headerlink" title="Proxies"></a>Proxies</h4><p>使用代理（Proxy）监听对象的操作，然后可以做一些相应事情。</p>
+<pre><code>var target = {};
+var handler = {
+  get: function (receiver, name) {
+    return `Hello, ${name}!`;
+  }
+};
+
+var p = new Proxy(target, handler);
+p.world === &apos;Hello, world!&apos;;
+</code></pre><p>可监听的操作：</p>
+<p> get、set、has、deleteProperty、apply、construct、getOwnPropertyDescriptor、defineProperty、getPrototypeOf、setPrototypeOf、enumerate、ownKeys、preventExtensions、isExtensible。</p>
+<h4 id="Symbols"><a href="#Symbols" class="headerlink" title="Symbols"></a>Symbols</h4><p>Symbol是一种基本类型。Symbol 通过调用symbol函数产生，它接收一个可选的名字参数，该函数返回的symbol是唯一的。</p>
+<pre><code>var key = Symbol(&quot;key&quot;);
+var key2 = Symbol(&quot;key&quot;);
+key == key2  //false
+</code></pre><h4 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h4><p>Promises是处理异步操作的对象，使用了 Promise 对象之后可以用一种链式调用的方式来组织代码，让代码更加直观（类似jQuery的deferred 对象）。</p>
+<pre><code>function fakeAjax(url) {
+  return new Promise(function (resolve, reject) {
+    // setTimeouts are for effect, typically we would handle XHR
+    if (!url) {
+      return setTimeout(reject, 1000);
+    }
+    return setTimeout(resolve, 1000);
+  });
+}
+
+// no url, promise rejected
+fakeAjax().then(function () {
+  console.log(&apos;success&apos;);
+},function () {
+  console.log(&apos;fail&apos;);
+});
+</code></pre><p>总结<br>对于ES6，在某些方式是不是重蹈ES4的覆辙，变得复杂了；又或许几年后大家的接受能力变强了，觉得是应该这样了。我觉得还是不错的，因为它们是向下兼容的，即使复杂语法不会用，也能用自己熟知的方式，提供的语法糖也都挺实际。</p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2018/12/11/hello-world/" class="fl pre-post btn btn-default" title='Hello World'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">Hello World</span>
+            </a>
+        
+        
+            <a href="/2018/08/13/vue3.0快速创建项目/" class="fr next-post btn btn-default" title='vue3.0快速创建项目'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">vue3.0快速创建项目</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+<div class="toc-container">
+  <h1>目录</h1>
+  <div class="content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#块级作用域"><span class="toc-number">1.</span> <span class="toc-text">块级作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象字面量的属性赋值简写"><span class="toc-number">2.</span> <span class="toc-text">对象字面量的属性赋值简写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值解构"><span class="toc-number">3.</span> <span class="toc-text">赋值解构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数"><span class="toc-number">4.</span> <span class="toc-text">箭头函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串模板"><span class="toc-number">4.1.</span> <span class="toc-text">字符串模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Iterators（迭代器）-for-of"><span class="toc-number">4.2.</span> <span class="toc-text">Iterators（迭代器）+ for..of</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Class"><span class="toc-number">4.3.</span> <span class="toc-text">Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Map-Set-WeakMap-WeakSet"><span class="toc-number">4.4.</span> <span class="toc-text">Map + Set + WeakMap + WeakSet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Proxies"><span class="toc-number">4.5.</span> <span class="toc-text">Proxies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Symbols"><span class="toc-number">4.6.</span> <span class="toc-text">Symbols</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Promises"><span class="toc-number">4.7.</span> <span class="toc-text">Promises</span></a></li></ol></li></ol>
+  </div>
+</div>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2018/08/20/ES6语法常用特性总结/";
+var disqus_url = "http://suijiafeng.com/2018/08/20/ES6语法常用特性总结/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

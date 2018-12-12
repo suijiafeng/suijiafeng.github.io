@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>关于Vue生命周期的使用与总结 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>关于Vue生命周期的使用与总结</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年06月19日</time>
+            
+            
+          </div>
+          <p> 所有的生命周期钩子自动绑定 this 上下文到实例中，因此可以通过其访问数据、运算等，下边会按照生命周期函数执行顺序来讲解</p>
+<ol>
+<li><p>beforeCreate</p>
+<p> 实例初始化后，创建完成之前被调用</p>
+</li>
+<li><p>created</p>
+<p> 实例创建完成后被立即调用，这个时候还没有开始挂载 不能访问 $el</p>
+</li>
+<li><p>beforeMount</p>
+<p> 挂载开始之前调用，即将开始挂载</p>
+<p> 对比：对应 react componentWillMount 在完成首次渲染之前调用 此时仍可以修改组件的状态</p>
+</li>
+<li><p>mounted</p>
+<p> 实例挂载之后调用，但是并不是所有子组件也都一起挂载完成，如果需要整个视图渲染完毕 可以使用 this.$nextTick(function () {})</p>
+<p> 对比：对应 react componentDidMount 完成首次渲染之后调用， 可以在这里操作DOM</p>
+</li>
+<li><p>beforeUpdate</p>
+<p> 数据更新完成前调用，发生在虚拟DOM重新渲染和打补丁前，在这里进一步的更改状态，不会触发重新渲染</p>
+<p> 对比：对应 react componentWillUpdate 接受状态的改变，进行渲染之前调用，不同的是 vue 中允许在这一步更改状态；而 react 则禁止，如果要更改状态要在 react 的 componentWillReceiveProps 声明周期中进行</p>
+</li>
+<li><p>updated</p>
+<p> 更改数据重新渲染虚拟DOM后调用，在这里，组件DOM已经更新，可以执行依赖DOM的操作，但是应该避免在这里更改状态，与 mounted 一样，不能保证所有子组件都挂载完成，可以使用 this.nextTick(function () {})` 进行全部渲染完的操作</p>
+<p> 对比：对应 react componentDidUpdate 完成渲染新的props或者state后调用，此时可以访问到新的DOM元素</p>
+</li>
+<li><p>beforeDestroy</p>
+<p> 实例销毁之前调用，在这一步，实例仍然可用</p>
+<p> 对比：对应 react componentWillUnmount 组件销毁之前调用，做一些清理工作</p>
+</li>
+<li><p>destroyed</p>
+<p> 实例销毁之后调用</p>
+<p> 对比：react 中没有这个生命周期钩子</p>
+</li>
+<li><p>其他</p>
+<p> react 中有 componentWillReceiveProps 这个钩子，用来组件接受更新时调用，可以再次更新 props 或者 state, 在 vue 中虽然没有这个声明周期钩子，但是 vue 实例提供一个 watch 属性，可以用来监视状态改变，与 componentWillReceiveProps 功能类似</p>
+<p> react 中有 shouldComponentUpdate 这个钩子，用来判断决定组件是否需要更新，以减少重新渲染，提升性能；在 vue 中组件是否需要更新，由 vue 框架主动判断，不在需要开发者在这个函数中操作了</p>
+</li>
+</ol>
+<p>总结一下他们大致的用处：<img src="http://suijiafeng.com/images/bg.jpg" alt=""></p>
+<pre><code>beforecreate : 可以在这加个loading事件
+
+created ：在这结束loading，还做一些初始化，实现函数自执行 
+
+mounted ： 在这发起axios请求，拿回数据，配合路由钩子做一些事情
+
+beforeDestory： destoryed ：当前组件已被删除，清空相关内容
+</code></pre>
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2018/07/12/webpack4的学习与填坑/" class="fl pre-post btn btn-default" title='webpack4的学习与填坑'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">webpack4的学习与填坑</span>
+            </a>
+        
+        
+            <a href="/2018/06/08/express搭建简单的后台服务器/" class="fr next-post btn btn-default" title='express搭建后台服务器'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">express搭建后台服务器</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2018/06/19/关于Vue生命周期的使用与总结/";
+var disqus_url = "http://suijiafeng.com/2018/06/19/关于Vue生命周期的使用与总结/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

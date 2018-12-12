@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>js的简单总结 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>js的简单总结</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2017年02月13日</time>
+            
+            
+          </div>
+          <h3 id="JS的数据类型"><a href="#JS的数据类型" class="headerlink" title="JS的数据类型"></a>JS的数据类型</h3><ol>
+<li>简单基本数据类型 :number  boolean  string  </li>
+<li>复杂数据类型: Array  function  Object   Date  RegExp    Math   String    Number   Boolean</li>
+<li>空类型   :  null  undefined</li>
+<li>基本包装类型 ：Number  String  Boolean</li>
+</ol>
+<h2 id="显式数据转换"><a href="#显式数据转换" class="headerlink" title="显式数据转换"></a>显式数据转换</h2><p>-Boolean|(需要转换的内容）<br>    a:可以转换成false的有： 0  -0  false  undefined  null  NaN   “”空字符串</p>
+<h2 id="Number-函数-可以用于任何数据类型"><a href="#Number-函数-可以用于任何数据类型" class="headerlink" title="Number()函数   可以用于任何数据类型"></a>Number()函数   可以用于任何数据类型</h2><ul>
+<li>如果是Boolean 值，true和false将分别被转换为 1 和 0</li>
+<li>如果是数值，只是简单的传入和返回。</li>
+<li>如果是null ，返回的是 0</li>
+<li>如果是undefiend   那么返回的是 NaN。</li>
+<li>如果是字符串，那么遵从如下规则：<blockquote>
+<pre><code>1.如果字符串本身的值是一个数字，就可以转换成数字。
+2.如果就是一个字符串，那么转换成 NaN
+3.如果字符串是一个空格字符串&quot; &quot;,或者是一个空字符串&quot;&quot;，转换成0。
+4.如果字符串本身的值是一个数字，头尾有空格会忽略，会被转换成一个数字；但是如果 中间有空格，那么会转成 NaN.  比如说：  var str = &quot; 3 2 &quot;;
+5.如果字符串本身的值是一个小数，那么会转换成小数。
+</code></pre></blockquote>
+</li>
+</ul>
+<h2 id="parseInt-函数-用于把字符串转换成数值"><a href="#parseInt-函数-用于把字符串转换成数值" class="headerlink" title="parseInt()函数 用于把字符串转换成数值"></a>parseInt()函数 用于把字符串转换成数值</h2><blockquote>
+<p>从左到右，找到是数字的部分，把他转换。<br>如果字符串的值本身是一个小数，转换后得到的是他的整数部分。</p>
+</blockquote>
+<h2 id="parseFloat-函数-用于把字符串转换成数值"><a href="#parseFloat-函数-用于把字符串转换成数值" class="headerlink" title="parseFloat()函数  用于把字符串转换成数值"></a>parseFloat()函数  用于把字符串转换成数值</h2><p>如果字符串的值本身是一个小数，注意：转换后得到的就是这个小数本身。</p>
+<h2 id="如何保留小数的位数"><a href="#如何保留小数的位数" class="headerlink" title="如何保留小数的位数"></a>如何保留小数的位数</h2><pre><code>可以先放放大若干倍数，在做相对应的操作。
+</code></pre><h2 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h2><ul>
+<li>其他类型的转number —在需要转换的内容前面写一个正号 +，适用规则和Number()函数的转换规则一样。</li>
+<li>其他类型转换string ：—-使用连接符+</li>
+<li>其他类型转布尔类型 ：—-使用取反运算符 –语法  !!需要转换的内容</li>
+</ul>
+<h3 id="valueof"><a href="#valueof" class="headerlink" title="valueof ()"></a>valueof ()</h3><p>是拿到对象原始的值</p>
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h3><p>对象的 toString()   —[object type]</p>
+<p>数组的 toString()</p>
+<p>转换为字符串类型</p>
+<h3 id="其它："><a href="#其它：" class="headerlink" title="其它："></a>其它：</h3><p>如果一个复杂的数据类型和一个基本的数据类型进行运算，会调用这个对象的valueOf方法，取去他的原始值再和这个基本数据类型进行运算.</p>
+<html><br>    <script><br>        console.log([] == ![]); //true<br>        console.log({} == !{}); //false<br>    </script><br></html>
+
+<p>  如果valueOf取不到一个值，就调用这个对象的toString方法，得到的值再和这个基本数据类型进行运算。</p>
+<h3 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h3><p>a  typeof</p>
+<p>能够判断基本数据类型(除了null，null会得到一个object)。 以及函数。</p>
+<p>b  instanceof</p>
+<p> 可以判断数据类型，不严谨</p>
+<h3 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h3><p>跳出本次循环</p>
+<h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>直接跳出循环体</p>
+<h3 id="对象的动态特性"><a href="#对象的动态特性" class="headerlink" title="对象的动态特性"></a>对象的动态特性</h3><ol>
+<li>动态的给对象添加属性和方法</li>
+<li>可以使用点语法</li>
+<li>可以使用数组特性的方式</li>
+</ol>
+<h2 id="DOM元素操作"><a href="#DOM元素操作" class="headerlink" title="DOM元素操作"></a>DOM元素操作</h2><p> 在地址栏上也是可以输入js代码的 ，同样也是可以执行的</p>
+<p>谷歌浏览器输出结果看颜色判断是什么类型。</p>
+<p>number:蓝色  string :黑色</p>
+<h2 id="navigator"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</h2><p> navigator .userAgent 查看浏览器信息</p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>for()</p>
+<p>for(var key in obj)</p>
+<h3 id="in-关键字的使用"><a href="#in-关键字的使用" class="headerlink" title="in 关键字的使用"></a>in 关键字的使用</h3><p>a 可以用来循环数组与对象</p>
+<p>b 判断某个对象是否可以访问某个属性、方法</p>
+<p>语法： “属性名” in  对象</p>
+<p>c  判断数组中有没有这个下标</p>
+<p> “下标” in 数组</p>
+<h2 id="值类型作为函数的参数"><a href="#值类型作为函数的参数" class="headerlink" title="值类型作为函数的参数"></a>值类型作为函数的参数</h2><p>执行过程分析：</p>
+<p>举个例子：</p>
+<p> function test1(num){</p>
+<p>   num = 100;</p>
+<p> }</p>
+<p> var num1 = 10;</p>
+<p> test1(num1);</p>
+<p> console.log(num1); //10</p>
+<p> 1 先声明一个变量 var num1 =10;</p>
+<p>2 函数如果有形参，会先声明形参。</p>
+<p>3 把实参的值复制一份给形参。</p>
+<p>4 执行函数体</p>
+<h2 id="引用类型作为函数的参数"><a href="#引用类型作为函数的参数" class="headerlink" title="引用类型作为函数的参数"></a>引用类型作为函数的参数</h2><h3 id="逻辑中断"><a href="#逻辑中断" class="headerlink" title="逻辑中断"></a>逻辑中断</h3><p>逻辑与 &amp;</p>
+<p>找假：</p>
+<p>如果参入逻辑运算的的第一个式子能够转换成布尔类型的false那么整个逻辑与表达式的结果就是第一个式子的值，如果第一个式子的值不能转换成布尔类型的false，那么整个逻辑与表达式的结果就是第二个式子的值。</p>
+<p>逻辑或 ||</p>
+<p>找真</p>
+<p>如果参入逻辑运算的的第一个式子能够转换成布尔类型的true那么整个逻辑与表达式的结果就是第一个式子的值，如果第一个式子的值不能转换成布尔类型的true，那么整个逻辑与表达式的结果就是第二个式子的值。</p>
+<h3 id="delete关键字的使用"><a href="#delete关键字的使用" class="headerlink" title="delete关键字的使用"></a>delete关键字的使用</h3><ul>
+<li>删除那些没有用 var 关键字声明的变量</li>
+</ul>
+<p>语法：  delete 变量</p>
+<ul>
+<li>删掉某个元素，后面的那些元素不会自动的往前移动</li>
+</ul>
+<p>var arr = [10,20,30,40];</p>
+<p>delete arr[0];</p>
+<p>console.log(arr);//下标为0  的元素已经被删除，但是位置仍然保留。</p>
+<ul>
+<li><p>移除对象的属性：</p>
+<p>语法：  delete 对象名.属性名</p>
+</li>
+</ul>
+<h2 id="removeAttribute"><a href="#removeAttribute" class="headerlink" title="removeAttribute"></a>removeAttribute</h2><p>普通的对象没有removeAttribute()方法，只有dom对象才有这个方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//removeAttribute dom对象移除属性</span><br><span class="line">//obj.removeAttribute(&quot;age&quot;); //报错，普通的对象没有removeAttribute()方法，只有dom对象才有这个方法。</span><br><span class="line">//console.log(obj);</span><br></pre></td></tr></table></figure></p>
+<h3 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h3><p>//  arr.pop(); //删掉最后一个</p>
+<p>//  arr.push(); //往数组的最后一个添加元素</p>
+<p>//  arr.shift(); //删掉第一个</p>
+<p>//  arr.unshift(); //往数组的第一个添加元素</p>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>如果程序在某一个地方出了异常，那么这个地方后面的代码都不会执行。</p>
+<p> //2.捕获异常，做处理</p>
+<p>  //语法： try {</p>
+<p>  //         有可能会出现异常的代码</p>
+<p>  //      }catch(e){</p>
+<p>  //         捕获到异常了之后要执行的处理-代码</p>
+<p>  //         e就是异常信息</p>
+<p>  //      }finally {</p>
+<p>  //         不管有没有发生异常，都要执行的代码</p>
+<p>  //         释放资源的处理</p>
+<p>  //      }</p>
+<p>  //如果try里面的代码没有发生异常，就执行try里面的代码，不会执行catch里面的代码。</p>
+<p>  //如果try里面的代码发生了异常，就不执行try里面的代码，会执行catch里面的代码，e是异常信息。</p>
+<p>  //finally里面的代码不管有没有发生异常都要执行。</p>
+<h2 id="逻辑与表达式"><a href="#逻辑与表达式" class="headerlink" title="逻辑与表达式"></a>逻辑与表达式</h2><p>关键字：找假<br>在一个逻辑与表达式中，如果第一个式子能够转换成false的话，那么第一个式子的值就是整个表达式的值。如果不是那么最后一个式子的值是整个表达式的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var num1=10,num2=20;</span><br><span class="line">var res = num1&gt;0&amp;&amp;num2&gt;0;</span><br><span class="line">console.log(res);//true</span><br><span class="line"></span><br><span class="line">var num3=10,num4=20;</span><br><span class="line">var res = num3&amp;&amp;num4;</span><br><span class="line">console.log(res);//20</span><br><span class="line"></span><br><span class="line">var num5=10,num6=20;</span><br><span class="line">var res = num5&lt;0&amp;&amp;num6;</span><br><span class="line">console.log(res);//false</span><br></pre></td></tr></table></figure>
+<h2 id="逻辑或表达式"><a href="#逻辑或表达式" class="headerlink" title="逻辑或表达式"></a>逻辑或表达式</h2><p>关键字：找真<br>在一个逻辑或表达式中，如果第一个式子能够转换成true的话，那么第一个式子的值就是整个表达式的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var num1 = 10;</span><br><span class="line">var num2 = 20;</span><br><span class="line">var res = undefined || num2++;</span><br><span class="line">console.log(res); //20</span><br><span class="line">console.log(num2); //21</span><br></pre></td></tr></table></figure></p>
+<h2 id="逻辑与-与-逻辑或的应用"><a href="#逻辑与-与-逻辑或的应用" class="headerlink" title="逻辑与 与 逻辑或的应用"></a>逻辑与 与 逻辑或的应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var value1 = document.getElementById(&quot;one&quot;)  &amp;&amp; document.getElementById(&quot;one&quot;).value ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">分析：如果不存在这个 one这个选择器 那么value1 =null ,如果存在，那么返回这个选择器相对应的值..</span><br><span class="line">好处，不至于报错。</span><br></pre></td></tr></table></figure>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2017/03/17/函数/" class="fl pre-post btn btn-default" title='函数'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">函数</span>
+            </a>
+        
+        
+            <a href="/2017/01/16/关于数组的简单方法/" class="fr next-post btn btn-default" title='关于数组的简单总结'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">关于数组的简单总结</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+<div class="toc-container">
+  <h1>目录</h1>
+  <div class="content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS的数据类型"><span class="toc-number">1.</span> <span class="toc-text">JS的数据类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#显式数据转换"><span class="toc-number"></span> <span class="toc-text">显式数据转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number-函数-可以用于任何数据类型"><span class="toc-number"></span> <span class="toc-text">Number()函数   可以用于任何数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#parseInt-函数-用于把字符串转换成数值"><span class="toc-number"></span> <span class="toc-text">parseInt()函数 用于把字符串转换成数值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#parseFloat-函数-用于把字符串转换成数值"><span class="toc-number"></span> <span class="toc-text">parseFloat()函数  用于把字符串转换成数值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何保留小数的位数"><span class="toc-number"></span> <span class="toc-text">如何保留小数的位数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐式转换"><span class="toc-number"></span> <span class="toc-text">隐式转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#valueof"><span class="toc-number">1.</span> <span class="toc-text">valueof ()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#toString-NaN"><span class="toc-number">2.</span> <span class="toc-text">toString()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它："><span class="toc-number">3.</span> <span class="toc-text">其它：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断数据类型"><span class="toc-number">4.</span> <span class="toc-text">判断数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#continue"><span class="toc-number">5.</span> <span class="toc-text">continue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break"><span class="toc-number">6.</span> <span class="toc-text">break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的动态特性"><span class="toc-number">7.</span> <span class="toc-text">对象的动态特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM元素操作"><span class="toc-number"></span> <span class="toc-text">DOM元素操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#navigator"><span class="toc-number"></span> <span class="toc-text">navigator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#循环"><span class="toc-number">1.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#in-关键字的使用"><span class="toc-number">2.</span> <span class="toc-text">in 关键字的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#值类型作为函数的参数"><span class="toc-number"></span> <span class="toc-text">值类型作为函数的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用类型作为函数的参数"><span class="toc-number"></span> <span class="toc-text">引用类型作为函数的参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑中断"><span class="toc-number">1.</span> <span class="toc-text">逻辑中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete关键字的使用"><span class="toc-number">2.</span> <span class="toc-text">delete关键字的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#removeAttribute"><span class="toc-number"></span> <span class="toc-text">removeAttribute</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数组操作"><span class="toc-number">1.</span> <span class="toc-text">数组操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常处理"><span class="toc-number">2.</span> <span class="toc-text">异常处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑与表达式"><span class="toc-number"></span> <span class="toc-text">逻辑与表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑或表达式"><span class="toc-number"></span> <span class="toc-text">逻辑或表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑与-与-逻辑或的应用"><span class="toc-number"></span> <span class="toc-text">逻辑与 与 逻辑或的应用</span></a>
+  </div>
+</div>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2017/02/13/js的简单总结/";
+var disqus_url = "http://suijiafeng.com/2017/02/13/js的简单总结/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

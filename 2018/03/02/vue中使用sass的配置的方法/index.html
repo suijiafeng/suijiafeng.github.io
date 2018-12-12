@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>vue中使用sass的配置的方法 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>vue中使用sass的配置的方法</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年03月02日</time>
+            
+            
+          </div>
+          <p>1、创建一个基于 webpack 模板的新项目</p>
+<pre><code>$ vue init webpack myvue
+</code></pre><p>2、在当前目录下，安装依赖</p>
+<pre><code>$ cd myvue
+$ npm install
+</code></pre><p>3、安装sass的依赖包</p>
+<pre><code>npm install --save-dev sass-loader
+//sass-loader依赖于node-sass
+npm install --save-dev node-sass
+</code></pre><p>4、在build文件夹下的webpack.base.conf.js的rules里面添加配置</p>
+<pre><code>{
+  test: /\.sass$/,
+  loaders: [&apos;style&apos;, &apos;css&apos;, &apos;sass&apos;]
+}
+</code></pre><p>5、在APP.vue中修改style标签</p>
+<pre><code>&lt;style lang=&quot;scss&quot;&gt;
+</code></pre>
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2018/04/30/VUE轮播图快速构建方法/" class="fl pre-post btn btn-default" title='vue轮播插件的快速使用'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">vue轮播插件的快速使用</span>
+            </a>
+        
+        
+            <a href="/2017/11/22/关于Ajax/" class="fr next-post btn btn-default" title='关于Ajax'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">关于Ajax</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2018/03/02/vue中使用sass的配置的方法/";
+var disqus_url = "http://suijiafeng.com/2018/03/02/vue中使用sass的配置的方法/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

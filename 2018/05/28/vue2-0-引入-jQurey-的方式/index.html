@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>vue2.0 引入 jQurey 的方式 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>vue2.0 引入 jQurey 的方式</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年05月28日</time>
+            
+            
+          </div>
+          <p>最近学习vue，习惯性的通过<code>&lt;script&gt;</code>标签引入jquery，写完后报错才想起来，这种方式在vue是不适用的。</p>
+<p>1：因为已经安装了vue脚手架，所以需要在webpack中全局引入jquery</p>
+<p>打开<code>package.json</code>文件，在里面的dependencies加入这行代码，jquery后面的是版本，根据你自己需求更改。</p>
+<pre><code> dependencies:{
+
+&quot;jquery&quot;:&quot;^2.2.3&quot;
+
+ }
+</code></pre><p>然后在命令行中<code>npm install jquery –save-dev</code></p>
+<p>大多人应该都是使用的淘宝镜像，所以使用cnpm，如果你不是 ，可以使用npm安装。</p>
+<p>2：找到build文件夹下的<code>webpack.base.conf.js</code>文件中加入一行代码</p>
+<pre><code>var webpack=require(&quot;webpack&quot;)
+</code></pre><p>3：然後在webpack.base.conf.js中module.exports的最后加入这行代码，</p>
+<pre><code>  plugins: [
+new webpack.optimize.CommonsChunkPlugin(&apos;common.js&apos;),
+new webpack.ProvidePlugin({
+jQuery: &quot;jquery&quot;,
+$: &quot;jquery&quot;
+})
+]
+</code></pre><p>4：在main.js中引入,加入下面这行代码</p>
+<pre><code>import $ from &apos;jquery&apos;
+</code></pre><p>5：最后一步，重新跑一边就好，<code>npm run dev</code></p>
+<p>6.验证方法 在APP.vue里进行验证</p>
+<pre><code>  //app.vue
+  &lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;img src=&quot;./assets/logo.png&quot;&gt;
+
+
+    &lt;a class=&quot;alert&quot; href=&quot;javascript:;&quot;&gt;點我 &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name:&quot;app&quot;,
+}
+$(document).ready(function(){
+  $(&quot;a&quot;).click(function(){
+    $(this).hide();
+    alert(&quot;這就對了&quot;)
+  });
+});
+
+&lt;/script&gt;
+&lt;style&gt;
+
+&lt;/style&gt;
+</code></pre><p>能夠弹出 alert 内容，就说明jQuery 能正常使用。</p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2018/06/02/vue项目里前后端接口联调总结/" class="fl pre-post btn btn-default" title='vue项目里前后端接口联调总结'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">vue项目里前后端接口联调总结</span>
+            </a>
+        
+        
+            <a href="/2018/05/13/項目中常用到的Emmet语法/" class="fr next-post btn btn-default" title='項目中常用到的Emmet语法'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">項目中常用到的Emmet语法</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2018/05/28/vue2-0-引入-jQurey-的方式/";
+var disqus_url = "http://suijiafeng.com/2018/05/28/vue2-0-引入-jQurey-的方式/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

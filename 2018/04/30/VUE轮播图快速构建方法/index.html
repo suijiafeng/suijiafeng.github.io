@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>vue轮播插件的快速使用 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>vue轮播插件的快速使用</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年04月30日</time>
+            
+            
+          </div>
+          <p>Vue-Awesome-Swiper 基于 Swiper4、适用于 Vue 的轮播组件，支持服务端渲染和单页应用。</p>
+<p>如果需要回退到 Swiper3，请使用 v2.6.7 版本<br>跟着下面的步骤，一起构建一个轮播图组件吧。</p>
+<p> 1、使用NPM下载依赖包</p>
+<pre><code>npm install vue-awesome-swiper --save
+</code></pre><p>2、全局注册</p>
+<pre><code>import Vue from &apos;vue&apos;
+import VueAwesomeSwiper from &apos;vue-awesome-swiper&apos;
+
+// require styles
+import &apos;swiper/dist/css/swiper.css&apos;
+
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+</code></pre><p>3、复制插件的通用模板</p>
+<pre><code>&lt;!-- The ref attr used to find the swiper instance --&gt;
+&lt;template&gt;
+  &lt;swiper :options=&quot;swiperOption&quot; ref=&quot;mySwiper&quot; @someSwiperEvent=&quot;callback&quot;&gt;
+    &lt;!-- slides --&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 1&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 2&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 3&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 4&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 5&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 6&lt;/swiper-slide&gt;
+    &lt;swiper-slide&gt;I&apos;m Slide 7&lt;/swiper-slide&gt;
+    &lt;!-- Optional controls --&gt;
+    &lt;div class=&quot;swiper-pagination&quot;  slot=&quot;pagination&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; slot=&quot;button-prev&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; slot=&quot;button-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;swiper-scrollbar&quot;   slot=&quot;scrollbar&quot;&gt;&lt;/div&gt;
+  &lt;/swiper&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default {
+    name: &apos;carrousel&apos;,
+    data() {
+      return {
+        swiperOption: {
+  loop:true,
+  pagination:{
+    el:&quot;.swiper-pagination&quot;,
+    clickable:true
+  }
+          // some swiper options/callbacks
+          // 所有的参数同 swiper 官方 api 参数
+          // ...
+        }
+      }
+    },
+    computed: {
+      swiper() {
+        return this.$refs.mySwiper.swiper
+      }
+    },
+    mounted() {
+      // current swiper instance
+      // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+      console.log(&apos;this is current swiper instance object&apos;, this.swiper)
+      this.swiper.slideTo(3, 1000, false)
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>4、根据实际需要，设置轮播图参数，例如，自动轮播，分页器，左右切换控制箭头，滚动速度等；<br>相关配置详情请上 <a href="http://www.swiper.com.cn/api/index2.html" target="_blank" rel="noopener">swiper</a>官网</p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2018/05/06/Linux-常用命令简单总结/" class="fl pre-post btn btn-default" title='Linux 常用命令简单总结'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">Linux 常用命令简单总结</span>
+            </a>
+        
+        
+            <a href="/2018/03/02/vue中使用sass的配置的方法/" class="fr next-post btn btn-default" title='vue中使用sass的配置的方法'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">vue中使用sass的配置的方法</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2018/04/30/VUE轮播图快速构建方法/";
+var disqus_url = "http://suijiafeng.com/2018/04/30/VUE轮播图快速构建方法/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

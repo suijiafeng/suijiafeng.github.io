@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>关于预处理less的总结 | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>关于预处理less的总结</h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2016年01月22日</time>
+            
+            
+          </div>
+          <h2 id="css-使用方式"><a href="#css-使用方式" class="headerlink" title="css 使用方式"></a>css 使用方式</h2><h3 id="行内样式"><a href="#行内样式" class="headerlink" title="行内样式"></a>行内样式</h3><pre><code>直接写在html 标签里面的 
+</code></pre><h3 id="内嵌样式"><a href="#内嵌样式" class="headerlink" title="内嵌样式"></a>内嵌样式</h3><pre><code>用style 标签包裹着
+</code></pre><h3 id="外联样式"><a href="#外联样式" class="headerlink" title="外联样式"></a>外联样式</h3><pre><code>另起一个样式表文件 最后通过link 文件连入其中的。
+</code></pre><h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>less 文件的引入之后，浏览器要以服务器的形式打开，不然效果出不来</p>
+<p>要注意表明文件类型，否则不起作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script id=&quot;template&quot; type=&quot;text/html&quot;&gt;</span><br><span class="line"></span><br><span class="line">id 必须用双引号，不然会报错</span><br></pre></td></tr></table></figure>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><p>表单聚焦时候线条去除    outline</p>
+<h2 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h2><p>这个属性只对定位的元素有效</p>
+<h2 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h2><h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>是一个符合属性，它的书写其实是有顺序要求的。如果你在前后者在后又给它设置单个属性，存在着覆盖问题。</p>
+<h2 id="白色与透明"><a href="#白色与透明" class="headerlink" title="白色与透明"></a>白色与透明</h2><h2 id="浮动。"><a href="#浮动。" class="headerlink" title="浮动。"></a>浮动。</h2><p>列出清除浮动的方法，并说明他们的优缺点。</p>
+<h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>行高是有继承性的，如果一个父盒子里面有若干个子元素，那么他们都会去继承来自父盒子的行高。这样带来。<br><strong>这一点在是元素垂直居中的时候要 尤其注意</strong></p>
+<h2 id="css-样式与模块化思想。"><a href="#css-样式与模块化思想。" class="headerlink" title="css 样式与模块化思想。"></a>css 样式与模块化思想。</h2><p>base.css 基础样式或者叫做重置样式<br>common.css 全局样式，<strong>要让他的权重尽可能的低</strong>，方便后续增加需求的时候对他进行覆盖<br>page.css ，页面独立样式，在vue 中，如果是添加了scode ，那么在这个页面上写的样式只会对这个页面有效。</p>
+<h2 id="less-1"><a href="#less-1" class="headerlink" title="less"></a>less</h2><p>定义变量<br>循环<br>函数</p>
+<h2 id="less的编译原理"><a href="#less的编译原理" class="headerlink" title="less的编译原理"></a>less的编译原理</h2><h2 id="行内块元素并排时候，他们之间会有间隙，"><a href="#行内块元素并排时候，他们之间会有间隙，" class="headerlink" title="行内块元素并排时候，他们之间会有间隙，"></a>行内块元素并排时候，他们之间会有间隙，</h2><p>解决办法，<br>1 浮动<br>2 定位<br>3 给父元素加上 font-size :0px;  <strong>注意一定是父元素，不然没有效果</strong>。</p>
+<h2 id="gt-子代选择器"><a href="#gt-子代选择器" class="headerlink" title="&gt; 子代选择器"></a>&gt; 子代选择器</h2><p>如果我们只是想选择某个元素的一个后代作为要，那么就可以使用子代选择器。</p>
+<h2 id="后代选择器"><a href="#后代选择器" class="headerlink" title="后代选择器"></a>后代选择器</h2><p>少用，会大范围杀伤！！！</p>
+<h2 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h2><p>给类名取名字不要太过于随意！！！</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>定位只是根据元素当前所在的位置进行定位，所以，我们在给元素进行定位的时候一定要把margin 考虑进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        div &#123;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 0px;</span><br><span class="line">            left: 0px;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: pink;</span><br><span class="line">            padding: 20px;</span><br><span class="line">            margin: 100px;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2016/02/21/Markdown-编辑器语法指南/" class="fl pre-post btn btn-default" title='Markdown 编辑器语法指南'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">Markdown 编辑器语法指南</span>
+            </a>
+        
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+<div class="toc-container">
+  <h1>目录</h1>
+  <div class="content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#css-使用方式"><span class="toc-number">1.</span> <span class="toc-text">css 使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#行内样式"><span class="toc-number">1.1.</span> <span class="toc-text">行内样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内嵌样式"><span class="toc-number">1.2.</span> <span class="toc-text">内嵌样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外联样式"><span class="toc-number">1.3.</span> <span class="toc-text">外联样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#less"><span class="toc-number">2.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表单"><span class="toc-number">3.</span> <span class="toc-text">表单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z-index"><span class="toc-number">4.</span> <span class="toc-text">z-index</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#box-shadow"><span class="toc-number">5.</span> <span class="toc-text">box-shadow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#background"><span class="toc-number">6.</span> <span class="toc-text">background</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#白色与透明"><span class="toc-number">7.</span> <span class="toc-text">白色与透明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浮动。"><span class="toc-number">8.</span> <span class="toc-text">浮动。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#line-height"><span class="toc-number">9.</span> <span class="toc-text">line-height</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css-样式与模块化思想。"><span class="toc-number">10.</span> <span class="toc-text">css 样式与模块化思想。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#less-1"><span class="toc-number">11.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#less的编译原理"><span class="toc-number">12.</span> <span class="toc-text">less的编译原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#行内块元素并排时候，他们之间会有间隙，"><span class="toc-number">13.</span> <span class="toc-text">行内块元素并排时候，他们之间会有间隙，</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gt-子代选择器"><span class="toc-number">14.</span> <span class="toc-text">&gt; 子代选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后代选择器"><span class="toc-number">15.</span> <span class="toc-text">后代选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类名"><span class="toc-number">16.</span> <span class="toc-text">类名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定位"><span class="toc-number">17.</span> <span class="toc-text">定位</span></a></li></ol>
+  </div>
+</div>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2016/01/22/关于预处理less的总结/";
+var disqus_url = "http://suijiafeng.com/2016/01/22/关于预处理less的总结/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>

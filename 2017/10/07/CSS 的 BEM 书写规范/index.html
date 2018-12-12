@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="互联网前端学习">
+  <meta name="keywords" content="">
+  
+    <link rel="icon" href="/favicon.ico">
+  
+    
+  <title>CSS 的 BEM 书写规范  | 眭加凤的博客</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="website_bg"></div>
+  <header>
+  <div class="header-container">
+    <a class='logo' href="/">
+      <span>眭加凤的博客</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id='post'>
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>CSS 的 BEM 书写规范 </h1>
+          <div class='post-meta'>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2017年10月07日</time>
+            
+            
+          </div>
+          <p>使用 BEM 命名规范，理论上讲，每行 css 代码都只有一个选择器。</p>
+<p>BEM代表“块（block）,元素（element）,修饰符（modifier）”,我们常用这三个实体开发组件。</p>
+<p>在选择器中，由以下三种符合来表示扩展的关系：</p>
+<pre><code>  -   中划线 ：仅作为连字符使用，表示某个块或者某个子元素的多单词之间的连接记号。
+  __  双下划线：双下划线用来连接块和块的子元素
+  _   单下划线：单下划线用来描述一个块或者块的子元素的一种状态
+
+type-block__element_modifier
+</code></pre><h3 id="块（block）"><a href="#块（block）" class="headerlink" title="块（block）"></a>块（block）</h3><p>一个块是设计或布局的一部分，它有具体且唯一地意义 ，要么是语义上的要么是视觉上的。</p>
+<p>在大多数情况下，任何独立的页面元素（或复杂或简单）都可以被视作一个块。它的HTML容器会有一个唯一的CSS类名，也就是这个块的名字。</p>
+<p>针对块的CSS类名会加一些前缀（ ui-），这些前缀在CSS中有类似 命名空间 的作用。</p>
+<p>一个块的正式（实际上是半正式的）定义有下面三个基本原则：</p>
+<p>CSS中只能使用类名（不能是ID）。<br>每一个块名应该有一个命名空间（前缀）<br>每一条CSS规则必须属于一个块。<br>例如：一个自定义列表 .list 是一个块，通常自定义列表是算在 mod 类别的，在这种情况下，一个 list 列表的block写法应该为:</p>
+<p>.list   </p>
+<h3 id="元素（element）"><a href="#元素（element）" class="headerlink" title="元素（element）"></a>元素（element）</h3><p>块中的子元素是块的子元素，并且子元素的子元素在 bem 里也被认为是块的直接子元素。一个块中元素的类名必须用父级块的名称作为前缀。</p>
+<p>如上面的例子，li.item 是列表的一个子元素，</p>
+<p>.list{}<br>.list .item{}</p>
+<p>.list{}<br>.list__item{}</p>
+<h3 id="修饰符（modifier）"><a href="#修饰符（modifier）" class="headerlink" title="修饰符（modifier）"></a>修饰符（modifier）</h3><p>一个“修饰符”可以理解为一个块的特定状态，标识着它持有一个特定的属性。</p>
+<p>用一个例子来解释最好不过了。一个表示按钮的块默认有三个大小：小，中，大。为了避免创建三个不同的块，最好是在块上加修饰符。这个修饰符应该有个名字（比如：size ）和值（ small，normal 或者 big ）。</p>
+<p>如上面的例子中，表示一个选中的列表，和一个激活的列表项</p>
+<pre><code>.list{}
+.list.select{}
+.list .item{}
+.list .item.active{}
+
+
+.list{}
+.list_select{}
+.list__item{}
+.list__item_active{}
+</code></pre><p>LESS 书写规范<br>使用 .less 后缀的文件来存储变量、混合代码以及最终合并压缩。</p>
+<p>子less    注解<br>lib-base.less    预定义的变量，例如颜色、字号、字体<br>lib-mixins.less    用于混合的代码，例如渐变、半透明的混合<br>lib-reset.less    初始化<br>lib-ui.less    颗粒化ui功能<br>xxx.less    模块样式<br>.less 文件的引用顺序会对最终编译的样式的作用域和优先级产生影响，请尽量按照由底层到自定义的顺序来引用。</p>
+<p>关于风格<br>书写原则</p>
+<ol>
+<li><p>原则上不会出现2层以上选择器嵌套<br>使用BEM原则，用命名来解耦，所有类名都为一层，增加效率和复用性</p>
+</li>
+<li><p>两层选择器嵌套出现在.mod-xxx__item_current子元素的情况，如下：<br>使用推荐的嵌套写法</p>
+</li>
+</ol>
+<p>常规写法：</p>
+<pre><code>.xxx{}
+.xxx__item{}
+.xxx__item_current{}
+// 嵌套写法
+.xxx__item_current .mod-xxx__link{}
+推荐：
+
+.xxx{}
+.xxx__item{}
+.xxx__item_hightlight{}
+.xxx__product-name{}
+.xxx__link{}
+.xxx__ming-zi-ke-yi-hen-chang{}
+
+// 嵌套写法
+.xxx__item_current{
+.xxx__link{}
+}
+</code></pre><p>对应的HTML结构如下：</p>
+<pre><code>&lt;ul class=&quot;xxx&quot;&gt;
+&lt;li class=&quot;xxx__item&quot;&gt;第一项
+&lt;div class=&quot;xxx__product-name&quot;&gt;我是名称&lt;/div&gt;
+&lt;span class=&quot;xxx__ming-zi-ke-yi-hen-chang&quot;&gt;看类名&lt;/span&gt;
+&lt;a href=&quot;#&quot; class=&quot;xxx__link&quot;&gt;我是link&lt;/a&gt;
+&lt;li&gt;
+&lt;li class=&quot;xxx__item xxx__item_current&quot;&gt;第二项 且 当前选择项
+&lt;div class=&quot;xxx__product-name&quot;&gt;我是名称&lt;/div&gt;
+&lt;a href=&quot;#&quot; class=&quot;xxx__item-link&quot;&gt;我是link&lt;/a&gt;
+&lt;li&gt;
+&lt;li class=&quot;xxx__item xxx__item_hightlight&quot;&gt;第三项 且 特殊高亮
+ &lt;div class=&quot;xxx__product-name&quot;&gt;我是名称&lt;/div&gt;
+&lt;a href=&quot;#&quot; class=&quot;xxx__item-link&quot;&gt;我是link&lt;/a&gt;
+&lt;li&gt;
+&lt;/ul&gt;
+</code></pre><p>BEM 解决问题<br>组件之间的完全解耦，不会造成命名空间的污染，如：.mod-xxx ul li 的写法带来的潜在的嵌套风险。</p>
+<p>性能<br>BEM 命名会使得 Class 类名变长，但经过 gzip 压缩后这个带宽开销可以忽略不计</p>
+
+        </section>
+    </article>
+    <!-- 文末导航 s-->
+    <div class="article-nav prev-next-wrap clearfix">
+        
+            <a href="/2017/11/22/关于Ajax/" class="fl pre-post btn btn-default" title='关于Ajax'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">关于Ajax</span>
+            </a>
+        
+        
+            <a href="/2017/08/04/35个Jquery小技巧/" class="fr next-post btn btn-default" title='35个Jquery小技巧'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">35个Jquery小技巧</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
+        
+    </div>
+ <!-- 文末导航 e -->
+ 
+  <!-- disqus 评论框 start -->
+  <div class="comment">
+      <div id="disqus_thread" class="disqus-thread">
+        <i>加载评论框需要翻墙</i>
+      </div>
+  </div>
+  <!-- disqus 评论框 end -->
+
+    
+</div>
+<aside>
+
+<div class="toc-container">
+  <h1>目录</h1>
+  <div class="content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#块（block）"><span class="toc-number">1.</span> <span class="toc-text">块（block）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#元素（element）"><span class="toc-number">2.</span> <span class="toc-text">元素（element）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符（modifier）"><span class="toc-number">3.</span> <span class="toc-text">修饰符（modifier）</span></a></li></ol>
+  </div>
+</div>
+
+</aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = "suijiafeng";
+var disqus_identifier = "http://suijiafeng.com/2017/10/07/CSS 的 BEM 书写规范/";
+var disqus_url = "http://suijiafeng.com/2017/10/07/CSS 的 BEM 书写规范/";
+isAgent(getDisqus)
+// determine user agent in China
+function isAgent(cb) {
+var url = '//graph.facebook.com/feed?callback=h';
+var xhr = new XMLHttpRequest();
+var called = false;
+xhr.open('GET', url);
+xhr.onreadystatechange = function() {
+if (xhr.readyState === 4 && xhr.status === 200) {
+called = true;
+cb(true);
+}
+};
+xhr.send();
+// timeout 1s, this facebook API is very fast.
+setTimeout(function() {
+if (!called) {
+xhr.abort();
+cb(false)
+}
+}, 1000);
+}
+function getDisqus(isAgent) {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+dsq.async = true
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+}
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+  <footer class="footer-bg" style="background: #555; margin: 2px 0;">
+  <div class="copyright" >
+    <div style="margin: 0 auto">
+         Copyright © 2016 - 2018  suijiafeng. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+
+</body>
+</html>
