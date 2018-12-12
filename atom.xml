@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://suijiafeng.com/"/>
-  <updated>2018-12-11T05:40:13.132Z</updated>
+  <updated>2018-12-12T04:36:13.331Z</updated>
   <id>http://suijiafeng.com/</id>
   
   <author>
@@ -15,46 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>我现在新加的内容</title>
-    <link href="http://suijiafeng.com/2018/12/11/%E6%88%91%E7%8E%B0%E5%9C%A8%E6%96%B0%E5%8A%A0%E7%9A%84%E5%86%85%E5%AE%B9/"/>
-    <id>http://suijiafeng.com/2018/12/11/我现在新加的内容/</id>
-    <published>2018-12-11T05:19:55.000Z</published>
-    <updated>2018-12-11T05:40:13.132Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在一点一点学习koa源码和深入浅出Node.js那本书，因为现在egg也是基于koa2的，而且自己以前做毕设的时候也用过，async/await真的是太好用了；现在新的中间层用egg搭建，所以想彻底把这部分的东西好好系统看一遍。</p><p>从开始看先看到了koa的一个构造函数，然后根据Node原生的写法看，它的真正创建服务的代码在listen()当中:</p><a id="more"></a><!-- more  --><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>constructor() {<br>    super();</p><pre><code>this.proxy = false;this.middleware = [];this.subdomainOffset = 2;this.env = process.env.NODE_ENV || &apos;development&apos;;this.context = Object.create(context);this.request = Object.create(request);this.response = Object.create(response);console.log(this)</code></pre><p>}</p><p>listen(…args) {<br>    debug(‘listen’);<br>    const server = http.createServer(this.callback());<br>    return server.listen(…args);<br>}<br>在看深入浅出Node.js那本书里面，知道具体的request和response都是在这个callback里面执行，所以就看这个函数：</p><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>callback() {<br>   const fn = compose(this.middleware);</p><p>   if (!this.listeners(‘error’).length) this.on(‘error’, this.onerror);</p><p>   const handleRequest = (req, res) =&gt; {<br>     const ctx = this.createContext(req, res);<br>     return this.handleRequest(ctx, fn);<br>   };</p><p>   return handleRequest;<br> }<br>在这里其实就是返回了一个handleRequest(),继续看：</p><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>handleRequest(ctx, fnMiddleware) {<br>  const res = ctx.res;<br>  res.statusCode = 404;<br>  const onerror = err =&gt; ctx.onerror(err);<br>  const handleResponse = () =&gt; respond(ctx);<br>  onFinished(res, onerror);<br>  return fnMiddleware(ctx).then(handleResponse).catch(onerror);<br>}<br>到这里基本就能看出来它首先执行的就是这个fn，而这个fn又是怎么执行的？</p><p>大家都知道它是洋葱式的处理，然后看了一下是放在一个koa-compose的模块当中，这个模块就仅仅几行代码：</p><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br> function compose (middleware) {<br>  if (!Array.isArray(middleware)) throw new TypeError(‘Middleware stack must be an array!’)<br>  for (const fn of middleware) {<br>    if (typeof fn !== ‘function’) throw new TypeError(‘Middleware must be composed of functions!’)<br>  }</p><p>  /**</p><ul><li>@param {Object} context</li><li>@return {Promise}</li><li><p>@api public<br>*/</p><p>return function (context, next) {<br>// last called middleware #<br>let index = -1<br>return dispatch(0)<br>function dispatch (i) {<br> if (i &lt;= index) return Promise.reject(new Error(‘next() called multiple times’))<br> index = i<br> let fn = middleware[i]<br> if (i === middleware.length) fn = next<br> if (!fn) return Promise.resolve()<br> try {<br>   return Promise.resolve(fn(context, function next () {</p><pre><code>return dispatch(i + 1)</code></pre><p>   }))<br> } catch (err) {<br>   return Promise.reject(err)<br> }<br>}<br>}<br>}<br>上面几行都是异常处理，真正的逻辑都在这个return的dispatch(0)当中，然后你发现它就是第一个中间件，首先先去做完一部分第一个中间件的事情，然后到了await next()就要去执行第二个，最终就是一个类似洋葱的模型：</p></li></ul><p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>Promise.resolve(function(context, next){<br>    //中间件一第一部分代码<br>    await/yield Promise.resolve(function(context, next){<br>        //中间件二第一部分代码<br>        await/yield Promise.resolve(function(context, next){<br>                //中间件三第一部分代码<br>                await/yield next() // …n个<br>                //中间件三第二部分代码<br>        }())<br>         //中间件二第二部分代码<br>    }())<br>    //中间件一第二部分代码<br>}())<br>显而易见这个就是一个洋葱模型，这就是一个简单的koa的中间件调用的实现方式，感觉就可以理解成一个Promise.all()</p><p>感觉看完这个，也就对koa的中间件有了一个彻底的认知和理解，那么直接去学习中间件的源码也轻松了很多。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在一点一点学习koa源码和深入浅出Node.js那本书，因为现在egg也是基于koa2的，而且自己以前做毕设的时候也用过，async/await真的是太好用了；现在新的中间层用egg搭建，所以想彻底把这部分的东西好好系统看一遍。&lt;/p&gt;
-&lt;p&gt;从开始看先看到了koa的一个构造函数，然后根据Node原生的写法看，它的真正创建服务的代码在listen()当中:&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://suijiafeng.com/2018/12/11/hello-world/"/>
-    <id>http://suijiafeng.com/2018/12/11/hello-world/</id>
-    <published>2018-12-11T04:22:14.889Z</published>
-    <updated>2018-12-11T04:22:14.889Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>ES6语法常用特性总结</title>
@@ -458,6 +418,52 @@ $ npm install
       
       
         &lt;h2 id=&quot;为什么要使用函数，使用函数的目的&quot;&gt;&lt;a href=&quot;#为什么要使用函数，使用函数的目的&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用函数，使用函数的目的&quot;&gt;&lt;/a&gt;为什么要使用函数，使用函数的目的&lt;/h2&gt;&lt;p&gt;1 程序有的时候一段一样的代
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>js的简单总结</title>
+    <link href="http://suijiafeng.com/2017/02/13/js%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://suijiafeng.com/2017/02/13/js的简单总结/</id>
+    <published>2017-02-12T17:31:00.000Z</published>
+    <updated>2018-12-12T04:36:13.346Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="JS的数据类型"><a href="#JS的数据类型" class="headerlink" title="JS的数据类型"></a>JS的数据类型</h3><ol><li>简单基本数据类型 :number  boolean  string  </li><li>复杂数据类型: Array  function  Object   Date  RegExp    Math   String    Number   Boolean</li><li>空类型   :  null  undefined</li><li>基本包装类型 ：Number  String  Boolean</li></ol><h2 id="显式数据转换"><a href="#显式数据转换" class="headerlink" title="显式数据转换"></a>显式数据转换</h2><p>-Boolean|(需要转换的内容）<br>    a:可以转换成false的有： 0  -0  false  undefined  null  NaN   “”空字符串</p><h2 id="Number-函数-可以用于任何数据类型"><a href="#Number-函数-可以用于任何数据类型" class="headerlink" title="Number()函数   可以用于任何数据类型"></a>Number()函数   可以用于任何数据类型</h2><ul><li>如果是Boolean 值，true和false将分别被转换为 1 和 0</li><li>如果是数值，只是简单的传入和返回。</li><li>如果是null ，返回的是 0</li><li>如果是undefiend   那么返回的是 NaN。</li><li>如果是字符串，那么遵从如下规则：<blockquote><pre><code>1.如果字符串本身的值是一个数字，就可以转换成数字。2.如果就是一个字符串，那么转换成 NaN3.如果字符串是一个空格字符串&quot; &quot;,或者是一个空字符串&quot;&quot;，转换成0。4.如果字符串本身的值是一个数字，头尾有空格会忽略，会被转换成一个数字；但是如果 中间有空格，那么会转成 NaN.  比如说：  var str = &quot; 3 2 &quot;;5.如果字符串本身的值是一个小数，那么会转换成小数。</code></pre></blockquote></li></ul><h2 id="parseInt-函数-用于把字符串转换成数值"><a href="#parseInt-函数-用于把字符串转换成数值" class="headerlink" title="parseInt()函数 用于把字符串转换成数值"></a>parseInt()函数 用于把字符串转换成数值</h2><blockquote><p>从左到右，找到是数字的部分，把他转换。<br>如果字符串的值本身是一个小数，转换后得到的是他的整数部分。</p></blockquote><h2 id="parseFloat-函数-用于把字符串转换成数值"><a href="#parseFloat-函数-用于把字符串转换成数值" class="headerlink" title="parseFloat()函数  用于把字符串转换成数值"></a>parseFloat()函数  用于把字符串转换成数值</h2><p>如果字符串的值本身是一个小数，注意：转换后得到的就是这个小数本身。</p><h2 id="如何保留小数的位数"><a href="#如何保留小数的位数" class="headerlink" title="如何保留小数的位数"></a>如何保留小数的位数</h2><pre><code>可以先放放大若干倍数，在做相对应的操作。</code></pre><h2 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h2><ul><li>其他类型的转number —在需要转换的内容前面写一个正号 +，适用规则和Number()函数的转换规则一样。</li><li>其他类型转换string ：—-使用连接符+</li><li>其他类型转布尔类型 ：—-使用取反运算符 –语法  !!需要转换的内容</li></ul><h3 id="valueof"><a href="#valueof" class="headerlink" title="valueof ()"></a>valueof ()</h3><p>是拿到对象原始的值</p><h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h3><p>对象的 toString()   —[object type]</p><p>数组的 toString()</p><p>转换为字符串类型</p><h3 id="其它："><a href="#其它：" class="headerlink" title="其它："></a>其它：</h3><p>如果一个复杂的数据类型和一个基本的数据类型进行运算，会调用这个对象的valueOf方法，取去他的原始值再和这个基本数据类型进行运算.</p><html><br>    <script><br>        console.log([] == ![]); //true<br>        console.log({} == !{}); //false<br>    </script><br></html><p>  如果valueOf取不到一个值，就调用这个对象的toString方法，得到的值再和这个基本数据类型进行运算。</p><h3 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h3><p>a  typeof</p><p>能够判断基本数据类型(除了null，null会得到一个object)。 以及函数。</p><p>b  instanceof</p><p> 可以判断数据类型，不严谨</p><h3 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h3><p>跳出本次循环</p><h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>直接跳出循环体</p><h3 id="对象的动态特性"><a href="#对象的动态特性" class="headerlink" title="对象的动态特性"></a>对象的动态特性</h3><ol><li>动态的给对象添加属性和方法</li><li>可以使用点语法</li><li>可以使用数组特性的方式</li></ol><h2 id="DOM元素操作"><a href="#DOM元素操作" class="headerlink" title="DOM元素操作"></a>DOM元素操作</h2><p> 在地址栏上也是可以输入js代码的 ，同样也是可以执行的</p><p>谷歌浏览器输出结果看颜色判断是什么类型。</p><p>number:蓝色  string :黑色</p><h2 id="navigator"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</h2><p> navigator .userAgent 查看浏览器信息</p><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>for()</p><p>for(var key in obj)</p><h3 id="in-关键字的使用"><a href="#in-关键字的使用" class="headerlink" title="in 关键字的使用"></a>in 关键字的使用</h3><p>a 可以用来循环数组与对象</p><p>b 判断某个对象是否可以访问某个属性、方法</p><p>语法： “属性名” in  对象</p><p>c  判断数组中有没有这个下标</p><p> “下标” in 数组</p><h2 id="值类型作为函数的参数"><a href="#值类型作为函数的参数" class="headerlink" title="值类型作为函数的参数"></a>值类型作为函数的参数</h2><p>执行过程分析：</p><p>举个例子：</p><p> function test1(num){</p><p>   num = 100;</p><p> }</p><p> var num1 = 10;</p><p> test1(num1);</p><p> console.log(num1); //10</p><p> 1 先声明一个变量 var num1 =10;</p><p>2 函数如果有形参，会先声明形参。</p><p>3 把实参的值复制一份给形参。</p><p>4 执行函数体</p><h2 id="引用类型作为函数的参数"><a href="#引用类型作为函数的参数" class="headerlink" title="引用类型作为函数的参数"></a>引用类型作为函数的参数</h2><h3 id="逻辑中断"><a href="#逻辑中断" class="headerlink" title="逻辑中断"></a>逻辑中断</h3><p>逻辑与 &amp;</p><p>找假：</p><p>如果参入逻辑运算的的第一个式子能够转换成布尔类型的false那么整个逻辑与表达式的结果就是第一个式子的值，如果第一个式子的值不能转换成布尔类型的false，那么整个逻辑与表达式的结果就是第二个式子的值。</p><p>逻辑或 ||</p><p>找真</p><p>如果参入逻辑运算的的第一个式子能够转换成布尔类型的true那么整个逻辑与表达式的结果就是第一个式子的值，如果第一个式子的值不能转换成布尔类型的true，那么整个逻辑与表达式的结果就是第二个式子的值。</p><h3 id="delete关键字的使用"><a href="#delete关键字的使用" class="headerlink" title="delete关键字的使用"></a>delete关键字的使用</h3><ul><li>删除那些没有用 var 关键字声明的变量</li></ul><p>语法：  delete 变量</p><ul><li>删掉某个元素，后面的那些元素不会自动的往前移动</li></ul><p>var arr = [10,20,30,40];</p><p>delete arr[0];</p><p>console.log(arr);//下标为0  的元素已经被删除，但是位置仍然保留。</p><ul><li><p>移除对象的属性：</p><p>语法：  delete 对象名.属性名</p></li></ul><h2 id="removeAttribute"><a href="#removeAttribute" class="headerlink" title="removeAttribute"></a>removeAttribute</h2><p>普通的对象没有removeAttribute()方法，只有dom对象才有这个方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//removeAttribute dom对象移除属性</span><br><span class="line">//obj.removeAttribute(&quot;age&quot;); //报错，普通的对象没有removeAttribute()方法，只有dom对象才有这个方法。</span><br><span class="line">//console.log(obj);</span><br></pre></td></tr></table></figure></p><h3 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h3><p>//  arr.pop(); //删掉最后一个</p><p>//  arr.push(); //往数组的最后一个添加元素</p><p>//  arr.shift(); //删掉第一个</p><p>//  arr.unshift(); //往数组的第一个添加元素</p><h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>如果程序在某一个地方出了异常，那么这个地方后面的代码都不会执行。</p><p> //2.捕获异常，做处理</p><p>  //语法： try {</p><p>  //         有可能会出现异常的代码</p><p>  //      }catch(e){</p><p>  //         捕获到异常了之后要执行的处理-代码</p><p>  //         e就是异常信息</p><p>  //      }finally {</p><p>  //         不管有没有发生异常，都要执行的代码</p><p>  //         释放资源的处理</p><p>  //      }</p><p>  //如果try里面的代码没有发生异常，就执行try里面的代码，不会执行catch里面的代码。</p><p>  //如果try里面的代码发生了异常，就不执行try里面的代码，会执行catch里面的代码，e是异常信息。</p><p>  //finally里面的代码不管有没有发生异常都要执行。</p><h2 id="逻辑与表达式"><a href="#逻辑与表达式" class="headerlink" title="逻辑与表达式"></a>逻辑与表达式</h2><p>关键字：找假<br>在一个逻辑与表达式中，如果第一个式子能够转换成false的话，那么第一个式子的值就是整个表达式的值。如果不是那么最后一个式子的值是整个表达式的值。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var num1=10,num2=20;</span><br><span class="line">var res = num1&gt;0&amp;&amp;num2&gt;0;</span><br><span class="line">console.log(res);//true</span><br><span class="line"></span><br><span class="line">var num3=10,num4=20;</span><br><span class="line">var res = num3&amp;&amp;num4;</span><br><span class="line">console.log(res);//20</span><br><span class="line"></span><br><span class="line">var num5=10,num6=20;</span><br><span class="line">var res = num5&lt;0&amp;&amp;num6;</span><br><span class="line">console.log(res);//false</span><br></pre></td></tr></table></figure><h2 id="逻辑或表达式"><a href="#逻辑或表达式" class="headerlink" title="逻辑或表达式"></a>逻辑或表达式</h2><p>关键字：找真<br>在一个逻辑或表达式中，如果第一个式子能够转换成true的话，那么第一个式子的值就是整个表达式的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var num1 = 10;</span><br><span class="line">var num2 = 20;</span><br><span class="line">var res = undefined || num2++;</span><br><span class="line">console.log(res); //20</span><br><span class="line">console.log(num2); //21</span><br></pre></td></tr></table></figure></p><h2 id="逻辑与-与-逻辑或的应用"><a href="#逻辑与-与-逻辑或的应用" class="headerlink" title="逻辑与 与 逻辑或的应用"></a>逻辑与 与 逻辑或的应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var value1 = document.getElementById(&quot;one&quot;)  &amp;&amp; document.getElementById(&quot;one&quot;).value ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">分析：如果不存在这个 one这个选择器 那么value1 =null ,如果存在，那么返回这个选择器相对应的值..</span><br><span class="line">好处，不至于报错。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;JS的数据类型&quot;&gt;&lt;a href=&quot;#JS的数据类型&quot; class=&quot;headerlink&quot; title=&quot;JS的数据类型&quot;&gt;&lt;/a&gt;JS的数据类型&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;简单基本数据类型 :number  boolean  string  &lt;/li&gt;
+&lt;li
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>关于数组的简单总结</title>
+    <link href="http://suijiafeng.com/2017/01/16/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E7%9A%84%E7%AE%80%E5%8D%95%E6%96%B9%E6%B3%95/"/>
+    <id>http://suijiafeng.com/2017/01/16/关于数组的简单方法/</id>
+    <published>2017-01-15T17:07:00.000Z</published>
+    <updated>2018-12-12T04:36:13.346Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h2><ol><li>数组方法千千万，我们还以在根据需要在它的原型上对它的方法进行扩展。</li><li>我们获取dom元素，返回来给我们的是一个伪数组，因为是个伪数组，所以他不能拥有数组的方法。</li></ol><h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><p>数组名.forEach(function (参数1（数组中的每个元素），参数2（数组下标），参数3（数组本身） ){});</p><p>数组名.forEach(function (参数1，参数2，参数3 ){});</p><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h2 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h2><h2 id="shift"><a href="#shift" class="headerlink" title="shift"></a>shift</h2><h2 id="unshift"><a href="#unshift" class="headerlink" title="unshift"></a>unshift</h2><h2 id="push"><a href="#push" class="headerlink" title="push"></a>push</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;数组方法&quot;&gt;&lt;a href=&quot;#数组方法&quot; class=&quot;headerlink&quot; title=&quot;数组方法&quot;&gt;&lt;/a&gt;数组方法&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;数组方法千千万，我们还以在根据需要在它的原型上对它的方法进行扩展。&lt;/li&gt;
+&lt;li&gt;我们获取dom元素，返回来
       
     
     </summary>
