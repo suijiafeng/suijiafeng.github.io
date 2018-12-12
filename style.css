@@ -1164,6 +1164,8 @@ pre[data-line] {
     box-sizing: border-box; } }
 
 @media (max-width: 700px) {
+  .links {
+    display: none; }
   #index {
     flex-direction: column; }
     #index .posts-list {
