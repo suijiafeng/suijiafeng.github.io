@@ -38,7 +38,6 @@ footer .copyright {
   margin: 0 auto;
   font-size: 14px;
   display: flex;
-  line-height: 3em;
   color: #BABABA; }
   footer .copyright a:hover {
     color: #007fff; }
@@ -1164,7 +1163,7 @@ pre[data-line] {
     box-sizing: border-box; } }
 
 @media (max-width: 700px) {
-  .links {
+  .links, .search {
     display: none; }
   #index {
     flex-direction: column; }
