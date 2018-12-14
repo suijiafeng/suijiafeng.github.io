@@ -10,7 +10,7 @@
     <link rel="icon" href="/favicon.ico">
   
     
-  <title>留言 | 眭加凤的博客</title>
+  <title>tags | 眭加凤的博客</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -57,18 +57,29 @@
   <div class="content">
     <article>
         <section class="content markdown-body">
-          <h1>留言</h1>
+          <h1>tags</h1>
           <div class='post-meta'>
-            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2016年02月01日</time>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018年12月14日</time>
             
             
           </div>
-          
+          <p>12344</p>
+
         </section>
     </article>
     <!-- 文末导航 s-->
     <div class="article-nav prev-next-wrap clearfix">
         
+            <a href="/2018/12/14/hello-world/" class="fl pre-post btn btn-default" title='Hello World'>
+                <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+                <span class="hidden-xs">Hello World</span>
+            </a>
+        
+        
+            <a href="/2018/12/11/我现在新加的内容/" class="fr next-post btn btn-default" title='我现在新加的内容'>
+                <span class="hidden-lg">下一篇</span>
+                <span class="hidden-xs">我现在新加的内容</span><i class="fa fa-angle-right fa-fw"></i>
+            </a>
         
     </div>
  <!-- 文末导航 e -->
@@ -92,8 +103,8 @@
 <script type="text/javascript">
 /* * * CONFIGURATION VARIABLES * * */
 var disqus_shortname = "suijiafeng";
-var disqus_identifier = "http://suijiafeng.com/comment/index.html";
-var disqus_url = "http://suijiafeng.com/comment/index.html";
+var disqus_identifier = "http://suijiafeng.com/2018/12/14/tags/";
+var disqus_url = "http://suijiafeng.com/2018/12/14/tags/";
 isAgent(getDisqus)
 // determine user agent in China
 function isAgent(cb) {
@@ -136,6 +147,65 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
   </div>
 </footer>
 
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
 
 
 
