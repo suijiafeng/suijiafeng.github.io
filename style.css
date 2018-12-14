@@ -32,16 +32,19 @@ main {
 .article-category {
   display: inline-block; }
 
-footer .copyright {
-  max-width: 1200px;
-  padding: 0 16px;
-  margin: 0 auto;
-  font-size: 14px;
-  display: flex;
-  line-height: 3em;
-  color: #BABABA; }
-  footer .copyright a:hover {
-    color: #007fff; }
+footer {
+  padding: 15px 0; }
+  footer .copyright {
+    max-width: 1200px;
+    padding: 0 16px;
+    margin: 0 auto;
+    font-size: 14px;
+    display: flex;
+    line-height: 1.5;
+    text-align: center;
+    color: #BABABA; }
+    footer .copyright a:hover {
+      color: #007fff; }
 
 header {
   background: #fafafa url(../images/head_bg.jpg);
@@ -1172,6 +1175,7 @@ pre[data-line] {
     #index .avatar {
       display: none; }
     #index aside {
+      display: none;
       position: static;
       order: 1; }
       #index aside > div {
